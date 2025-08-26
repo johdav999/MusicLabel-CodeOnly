@@ -1,5 +1,6 @@
-#include "CoreMinimal.h"
 #include "LabelAssetManager.h"
+#include "CoreMinimal.h"
+
 #include "Engine/Engine.h"
 
 const FPrimaryAssetType ULabelAssetManager::SongAssetType(TEXT("Song"));

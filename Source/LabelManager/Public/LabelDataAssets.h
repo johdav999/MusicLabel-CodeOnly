@@ -1,7 +1,18 @@
 #pragma once
 
 #include "CoreMinimal.h"
+
+#include "CoreMinimal.h"
+
+// Some engine versions keep UPrimaryDataAsset in this header; older keep it in DataAsset.h.
+// This conditional include keeps you safe across UE versions.
+#if __has_include("Engine/PrimaryDataAsset.h")
 #include "Engine/PrimaryDataAsset.h"
+#else
+#include "Engine/DataAsset.h"
+//using UPrimaryDataAsset = UDataAsset; // fallback to compile; adjust if needed
+#endif
+
 #include "LabelDataAssets.generated.h"
 
 class UCurveFloat;

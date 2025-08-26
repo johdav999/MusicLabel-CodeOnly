@@ -1,5 +1,6 @@
-#include "CoreMinimal.h"
 #include "LabelDataAssets.h"
+#include "CoreMinimal.h"
+
 #include "LabelAssetManager.h"
 
 FPrimaryAssetId USongAsset::GetPrimaryAssetId() const
