@@ -48,3 +48,22 @@ struct FGameEvent
     int32 Priority = 0;
 };
 
+/** Represents a single piece of music. */
+USTRUCT(BlueprintType)
+struct FSong
+{
+    GENERATED_BODY()
+
+    /** Title of the song. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Song")
+    FString Title;
+
+    /** Length of the song in seconds. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Song")
+    int32 LengthSec = 0;
+
+    /** Tempo of the song in beats per minute. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Song")
+    int32 TempoBPM = 0;
+};
+
