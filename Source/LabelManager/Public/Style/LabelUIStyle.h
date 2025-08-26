@@ -11,7 +11,7 @@ public:
     static void Initialize();
     static void Shutdown();
     static const ISlateStyle& Get();
-    static FName GetStyleSetName();
+    static FName GetStyleName();
 
     // Colors
     FLinearColor ColorBackground;

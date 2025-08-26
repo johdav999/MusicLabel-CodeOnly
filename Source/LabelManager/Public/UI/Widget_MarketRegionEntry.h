@@ -8,6 +8,7 @@
 
 class UTextBlock;
 class UProgressBar;
+struct FTimerHandle;
 
 UCLASS()
 class LABELMANAGER_API UWidget_MarketRegionEntry : public UUserWidget, public IUserObjectListEntry
@@ -24,4 +25,6 @@ protected:
     UProgressBar* IntensityBar;
 
     void PlayFadeIn();
+
+    FTimerHandle FadeTimer;
 };

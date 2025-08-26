@@ -5,7 +5,7 @@
 TSharedPtr<FLabelUIStyle> FLabelUIStyle::Instance = nullptr;
 
 FLabelUIStyle::FLabelUIStyle()
-    : FSlateStyleSet(GetStyleSetName())
+    : FSlateStyleSet(GetStyleName())
 {
     ColorBackground = FLinearColor(0.05f, 0.05f, 0.05f);
     ColorPanel = FLinearColor(0.1f, 0.1f, 0.1f);
@@ -50,7 +50,7 @@ const ISlateStyle& FLabelUIStyle::Get()
     return *Instance;
 }
 
-FName FLabelUIStyle::GetStyleSetName()
+FName FLabelUIStyle::GetStyleName()
 {
     static FName StyleName(TEXT("LabelUIStyle"));
     return StyleName;

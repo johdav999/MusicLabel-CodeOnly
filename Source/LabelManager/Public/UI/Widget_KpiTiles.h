@@ -6,6 +6,7 @@
 #include "Widget_KpiTiles.generated.h"
 
 class UTextBlock;
+struct FTimerHandle;
 
 UCLASS(BlueprintType)
 class LABELMANAGER_API UWidget_KpiTiles : public UUserWidget
@@ -31,4 +32,6 @@ protected:
     UTextBlock* ActiveCampaignsText;
 
     void PlayFadeIn();
+
+    FTimerHandle FadeTimer;
 };

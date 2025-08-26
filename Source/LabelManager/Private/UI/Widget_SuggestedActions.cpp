@@ -6,9 +6,9 @@
 void UWidget_SuggestedActions::NativeConstruct()
 {
     Super::NativeConstruct();
-    if (ActionsList && !ActionsList->GetEntryWidgetClass())
+    if (ActionsList && !ActionsList->EntryWidgetClass)
     {
-        ActionsList->SetEntryWidgetClass(UWidget_ActionEntry::StaticClass());
+        ActionsList->EntryWidgetClass = UWidget_ActionEntry::StaticClass();
     }
     PlayFadeIn();
 }
@@ -31,15 +31,14 @@ void UWidget_SuggestedActions::PlayFadeIn()
 {
     SetRenderOpacity(0.f);
     float Opacity = 0.f;
-    FTimerHandle Timer;
-    GetWorld()->GetTimerManager().SetTimer(Timer, [this, Opacity]() mutable
+    GetWorld()->GetTimerManager().SetTimer(FadeTimer, [this, Opacity]() mutable
     {
         SetRenderOpacity(Opacity);
         Opacity += 0.1f;
         if (Opacity >= 1.f)
         {
             SetRenderOpacity(1.f);
-            GetWorld()->GetTimerManager().ClearTimer(Timer);
+            GetWorld()->GetTimerManager().ClearTimer(FadeTimer);
         }
     }, 0.05f, true);
 }

@@ -5,7 +5,18 @@
 #include "LabelSimSubsystem.generated.h"
 
 class UArtistAsset;
-struct FRelease;
+
+USTRUCT()
+struct FRelease
+{
+    GENERATED_BODY()
+
+    UPROPERTY()
+    FString Title;
+
+    UPROPERTY()
+    FDateTime ReleaseDate;
+};
 
 /** Subsystem managing label simulation timeline and events. */
 UCLASS()

@@ -6,6 +6,7 @@
 #include "Widget_MarketHeatmap.generated.h"
 
 class UListView;
+struct FTimerHandle;
 
 UCLASS()
 class UMarketRegionObject : public UObject
@@ -30,4 +31,6 @@ protected:
     UListView* HeatList;
 
     void PlayFadeIn();
+
+    FTimerHandle FadeTimer;
 };
