@@ -51,11 +51,11 @@ private:
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Attributes", meta=(AllowPrivateAccess="true"))
     float Stamina = 0.f;
 public:
-    UFUNCTION(BlueprintPure, Category="Attributes") float GetTalent() const { return Talent; }
-    UFUNCTION(BlueprintPure, Category="Attributes") float GetCharisma() const { return Charisma; }
-    UFUNCTION(BlueprintPure, Category="Attributes") float GetReliability() const { return Reliability; }
-    UFUNCTION(BlueprintPure, Category="Attributes") float GetMarketAppeal() const { return MarketAppeal; }
-    UFUNCTION(BlueprintPure, Category="Attributes") float GetStamina() const { return Stamina; }
+    float GetTalent() const { return Talent; }
+    float GetCharisma() const { return Charisma; }
+    float GetReliability() const { return Reliability; }
+    float GetMarketAppeal() const { return MarketAppeal; }
+    float GetStamina() const { return Stamina; }
 };
 
 /** Contractual terms with an artist */
@@ -69,8 +69,8 @@ private:
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Contract", meta=(AllowPrivateAccess="true"))
     float RoyaltySplit = 0.f;
 public:
-    UFUNCTION(BlueprintPure, Category="Contract") int32 GetAdvance() const { return Advance; }
-    UFUNCTION(BlueprintPure, Category="Contract") float GetRoyaltySplit() const { return RoyaltySplit; }
+    int32 GetAdvance() const { return Advance; }
+    float GetRoyaltySplit() const { return RoyaltySplit; }
 };
 
 /** Song data asset */
