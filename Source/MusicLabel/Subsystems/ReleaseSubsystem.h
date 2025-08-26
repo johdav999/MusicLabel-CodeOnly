@@ -2,10 +2,10 @@
 
 #include "CoreMinimal.h"
 #include "Subsystems/GameInstanceSubsystem.h"
+#include "MusicLabelTypes.h"
 #include "ReleaseSubsystem.generated.h"
 
 class UArtistAsset;
-struct FSong;
 
 /** Handles planning and execution of music releases. */
 UCLASS()
