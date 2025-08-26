@@ -14,11 +14,11 @@ void UDashboardViewModel::RefreshAll()
 
     News.Reset();
     News.Add({FText::FromString("Artist A tops charts"), FDateTime::UtcNow()});
-    News.Add({FText::FromString("Label signs new talent"), FDateTime::UtcNow().AddDays(-1)});
+    News.Add({FText::FromString("Label signs new talent"), FDateTime::UtcNow() - FTimespan::FromDays(1)});
 
     Releases.Reset();
-    Releases.Add({FText::FromString("Album X"), FText::FromString("LP"), FDateTime::UtcNow().AddDays(5)});
-    Releases.Add({FText::FromString("Single Y"), FText::FromString("Single"), FDateTime::UtcNow().AddDays(12)});
+    Releases.Add({FText::FromString("Album X"), FText::FromString("LP"), FDateTime::UtcNow() + FTimespan::FromDays(5)});
+    Releases.Add({FText::FromString("Single Y"), FText::FromString("Single"), FDateTime::UtcNow() + FTimespan::FromDays(12)});
 
     MarketStats.Reset();
     MarketStats.Add({FName("NorthAmerica"), 0.8f});

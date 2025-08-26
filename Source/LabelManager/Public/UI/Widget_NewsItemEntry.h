@@ -7,6 +7,7 @@
 #include "Widget_NewsItemEntry.generated.h"
 
 class UTextBlock;
+struct FTimerHandle;
 
 UCLASS()
 class LABELMANAGER_API UWidget_NewsItemEntry : public UUserWidget, public IUserObjectListEntry
@@ -23,4 +24,6 @@ protected:
     UTextBlock* DateText;
 
     void PlayFadeIn();
+
+    FTimerHandle FadeTimer;
 };

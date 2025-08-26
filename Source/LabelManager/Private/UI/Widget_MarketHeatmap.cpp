@@ -6,9 +6,9 @@
 void UWidget_MarketHeatmap::NativeConstruct()
 {
     Super::NativeConstruct();
-    if (HeatList && !HeatList->GetEntryWidgetClass())
+    if (HeatList && !HeatList->EntryWidgetClass)
     {
-        HeatList->SetEntryWidgetClass(UWidget_MarketRegionEntry::StaticClass());
+        HeatList->EntryWidgetClass = UWidget_MarketRegionEntry::StaticClass();
     }
     PlayFadeIn();
 }
@@ -31,15 +31,14 @@ void UWidget_MarketHeatmap::PlayFadeIn()
 {
     SetRenderOpacity(0.f);
     float Opacity = 0.f;
-    FTimerHandle Timer;
-    GetWorld()->GetTimerManager().SetTimer(Timer, [this, Opacity]() mutable
+    GetWorld()->GetTimerManager().SetTimer(FadeTimer, [this, Opacity]() mutable
     {
         SetRenderOpacity(Opacity);
         Opacity += 0.1f;
         if (Opacity >= 1.f)
         {
             SetRenderOpacity(1.f);
-            GetWorld()->GetTimerManager().ClearTimer(Timer);
+            GetWorld()->GetTimerManager().ClearTimer(FadeTimer);
         }
     }, 0.05f, true);
 }

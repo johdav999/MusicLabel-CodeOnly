@@ -6,6 +6,7 @@
 #include "Widget_NewsFeed.generated.h"
 
 class UListView;
+struct FTimerHandle;
 
 UCLASS()
 class UNewsItemObject : public UObject
@@ -30,4 +31,6 @@ protected:
     UListView* NewsList;
 
     void PlayFadeIn();
+
+    FTimerHandle FadeTimer;
 };

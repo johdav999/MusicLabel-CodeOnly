@@ -8,6 +8,7 @@
 
 class UTextBlock;
 class UButton;
+struct FTimerHandle;
 
 UCLASS()
 class LABELMANAGER_API UWidget_ActionEntry : public UUserWidget, public IUserObjectListEntry
@@ -24,4 +25,6 @@ protected:
     UButton* GoButton;
 
     void PlayFadeIn();
+
+    FTimerHandle FadeTimer;
 };

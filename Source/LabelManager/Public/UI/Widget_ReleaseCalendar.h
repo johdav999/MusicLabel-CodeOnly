@@ -9,6 +9,7 @@ class UTextBlock;
 class UButton;
 class UUniformGridPanel;
 class UListView;
+struct FTimerHandle;
 
 UCLASS()
 class UReleaseItemObject : public UObject
@@ -48,4 +49,6 @@ protected:
     UListView* UpcomingList;
 
     void PlayFadeIn();
+
+    FTimerHandle FadeTimer;
 };

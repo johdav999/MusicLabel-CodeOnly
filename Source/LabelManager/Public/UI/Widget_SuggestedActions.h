@@ -6,6 +6,7 @@
 #include "Widget_SuggestedActions.generated.h"
 
 class UListView;
+struct FTimerHandle;
 
 UCLASS()
 class USuggestedActionObject : public UObject
@@ -30,4 +31,6 @@ protected:
     UListView* ActionsList;
 
     void PlayFadeIn();
+
+    FTimerHandle FadeTimer;
 };
