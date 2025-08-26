@@ -24,6 +24,22 @@ public:
     UFUNCTION(BlueprintCallable, Category="Economy")
     void ReportPAndL() const;
 
+    /** Track studio costs, marketing spend, and advances. */
+    UFUNCTION(BlueprintCallable, Category="Economy")
+    void TrackCosts();
+
+    /** Collect revenues from sales, streaming, tickets, merch, and licensing. */
+    UFUNCTION(BlueprintCallable, Category="Economy")
+    void CollectRevenues();
+
+    /** Generate monthly profit and loss reports. */
+    UFUNCTION(BlueprintCallable, Category="Economy")
+    void GenerateMonthlyReport();
+
+    /** Recoup advances before paying artist royalties. */
+    UFUNCTION(BlueprintCallable, Category="Economy")
+    void RecoupAdvances();
+
 private:
     /** Current cash balance. */
     float CashBalance = 0.0f;

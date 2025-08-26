@@ -29,6 +29,26 @@ public:
     UFUNCTION(BlueprintCallable, Category="LabelSim")
     void ApplyDecadeModifiers();
 
+    /** Update marketing exposure values for active releases. */
+    UFUNCTION(BlueprintCallable, Category="LabelSim")
+    void UpdateMarketingExposures();
+
+    /** Calculate consumer demand across demographics and regions. */
+    UFUNCTION(BlueprintCallable, Category="LabelSim")
+    void CalculateDemand();
+
+    /** Convert demand into sales and streaming numbers. */
+    UFUNCTION(BlueprintCallable, Category="LabelSim")
+    void ConvertDemandToSales();
+
+    /** Update fame, morale, and fatigue for all artists. */
+    UFUNCTION(BlueprintCallable, Category="LabelSim")
+    void UpdateArtistStates();
+
+    /** Apply daily revenue, costs, and royalty transactions. */
+    UFUNCTION(BlueprintCallable, Category="LabelSim")
+    void ApplyFinanceTransactions();
+
 private:
     /** Current date of the simulation. */
     FDateTime CurrentDate;
