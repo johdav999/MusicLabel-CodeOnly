@@ -1,14 +1,13 @@
-Binaries
-DerivedDataCache
-Intermediate
-Saved
-.vscode
-.vs
-*.VC.db
-*.opensdf
-*.opendb
-*.sdf
-*.sln
-*.suo
-*.xcodeproj
-*.xcworkspace
+# Ignore VS folder at repo root
+../.vs/
+
+# Or if .vs is sometimes created inside:
+.vs/
+
+# Unreal
+Binaries/
+DerivedDataCache/
+Intermediate/
+Saved/*
+!Saved/Config/**
+!Saved/Localization/**
