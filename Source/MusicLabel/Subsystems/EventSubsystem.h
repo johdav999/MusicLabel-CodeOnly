@@ -2,9 +2,8 @@
 
 #include "CoreMinimal.h"
 #include "Subsystems/GameInstanceSubsystem.h"
+#include "MusicLabelTypes.h"
 #include "EventSubsystem.generated.h"
-
-struct FGameEvent;
 
 /** Manages random or triggered game events. */
 UCLASS()

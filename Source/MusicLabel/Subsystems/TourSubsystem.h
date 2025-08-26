@@ -2,9 +2,9 @@
 
 #include "CoreMinimal.h"
 #include "Subsystems/GameInstanceSubsystem.h"
+#include "MusicLabelTypes.h"
 #include "TourSubsystem.generated.h"
 
-struct FTour;
 class UVenueAsset;
 
 /** Handles tour planning and simulation. */

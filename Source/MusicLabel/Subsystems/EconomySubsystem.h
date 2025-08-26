@@ -2,9 +2,8 @@
 
 #include "CoreMinimal.h"
 #include "Subsystems/GameInstanceSubsystem.h"
+#include "MusicLabelTypes.h"
 #include "EconomySubsystem.generated.h"
-
-struct FTransaction;
 
 /** Handles financial calculations and tracking. */
 UCLASS()
