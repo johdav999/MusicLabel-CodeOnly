@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Engine/DataTable.h"
 #include "MusicLabelTypes.generated.h"
 
 /** Represents a financial transaction in the game's economy. */
@@ -33,19 +34,36 @@ struct FTour
     TArray<FString> Stops;
 };
 
-/** Basic definition of a game event. */
+UENUM(BlueprintType)
+enum class EEventCategory : uint8
+{
+    NewArtistGigging      UMETA(DisplayName="New Artist Gigging (to scout)"),
+    ArtistSignedRecordDeal UMETA(DisplayName="Artist Signed a record Deal"),
+    ArtistBookedForTour   UMETA(DisplayName="Artist Booked for a tour"),
+    NewGenreEmerged       UMETA(DisplayName="New Genre has emerged")
+};
+
+/** Definition of an event entry for data tables. */
 USTRUCT(BlueprintType)
-struct FGameEvent
+struct FGameEvent : public FTableRowBase
 {
     GENERATED_BODY()
 
-    /** Text describing the event. */
+    /** Short headline for the event. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Event")
+    FString Headline;
+
+    /** When the event occurred. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Event")
+    FDateTime Date;
+
+    /** Detailed description of the event. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Event")
     FString Description;
 
-    /** Priority used to order events; higher values handled first. */
+    /** Category of the event. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Event")
-    int32 Priority = 0;
+    EEventCategory EventCategory = EEventCategory::NewArtistGigging;
 };
 
 /** Represents a single piece of music. */
