@@ -1,13 +1,17 @@
-#include "UI/Widget_NewsFeed.h"
+﻿#include "UI/Widget_NewsFeed.h"
 #include "Components/ListView.h"
-#include "TimerManager.h"
+
 #include "UI/Widget_NewsItemEntry.h"
 
-void UWidget_NewsFeed::NativeConstruct() {
+void UWidget_NewsFeed::NativeConstruct() 
+{
   Super::NativeConstruct();
-  if (NewsList && !NewsList->GetEntryWidgetClass()) {
-    NewsList->SetEntryWidgetClass(UWidget_NewsItemEntry::StaticClass());
+  if (NewsList)
+  {
+      const TSubclassOf<UUserWidget> Desired = UWidget_NewsItemEntry::StaticClass();
+
   }
+
   PlayFadeIn();
 }
 

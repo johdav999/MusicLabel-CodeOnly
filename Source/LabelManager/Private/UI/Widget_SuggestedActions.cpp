@@ -5,9 +5,9 @@
 
 void UWidget_SuggestedActions::NativeConstruct() {
   Super::NativeConstruct();
-  if (ActionsList && !ActionsList->GetEntryWidgetClass()) {
-    ActionsList->SetEntryWidgetClass(UWidget_ActionEntry::StaticClass());
-  }
+  //if (ActionsList && !ActionsList->GetEntryWidgetClass()) {
+  //  ActionsList->SetEntryWidgetClass(UWidget_ActionEntry::StaticClass());
+  //}
   PlayFadeIn();
 }
 

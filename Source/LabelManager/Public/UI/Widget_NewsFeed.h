@@ -3,6 +3,8 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "DashboardViewModel.h"
+#include "TimerManager.h"
+#include "Components/ListView.h"        // <-- IMPORTANT
 #include "Widget_NewsFeed.generated.h"
 
 class UListView;

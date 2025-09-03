@@ -3,23 +3,23 @@
 	"EngineAssociation": "5.6",
 	"Category": "",
 	"Description": "",
-        "Modules": [
-                {
-                        "Name": "MusicLabel",
-                        "Type": "Runtime",
-                        "LoadingPhase": "Default"
-                },
-                {
-                        "Name": "LabelManager",
-                        "Type": "Runtime",
-                        "LoadingPhase": "Default"
-                },
-                {
-                        "Name": "LabelManagerEditor",
-                        "Type": "Editor",
-                        "LoadingPhase": "Default"
-                }
-        ],
+	"Modules": [
+		{
+			"Name": "MusicLabel",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		},
+		{
+			"Name": "LabelManager",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		},
+		{
+			"Name": "LabelManagerEditor",
+			"Type": "Editor",
+			"LoadingPhase": "Default"
+		}
+	],
 	"Plugins": [
 		{
 			"Name": "ModelingToolsEditorMode",

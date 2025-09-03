@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "Subsystems/GameInstanceSubsystem.h"
-#include "MusicLabelTypes.h"
+#include "MusicLabel/MusicLabelTypes.h"
 #include "TourSubsystem.generated.h"
 
 class UVenueAsset;

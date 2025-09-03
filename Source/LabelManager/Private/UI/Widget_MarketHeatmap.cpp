@@ -5,9 +5,9 @@
 
 void UWidget_MarketHeatmap::NativeConstruct() {
   Super::NativeConstruct();
-  if (HeatList && !HeatList->GetEntryWidgetClass()) {
-    HeatList->SetEntryWidgetClass(UWidget_MarketRegionEntry::StaticClass());
-  }
+  //if (HeatList && !HeatList->GetEntryWidgetClass()) {
+  //  HeatList->SetEntryWidgetClass(UWidget_MarketRegionEntry::StaticClass());
+  //}
   PlayFadeIn();
 }
 

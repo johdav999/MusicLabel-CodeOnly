@@ -9,9 +9,9 @@
 
 void UWidget_ReleaseCalendar::NativeConstruct() {
   Super::NativeConstruct();
-  if (UpcomingList && !UpcomingList->GetEntryWidgetClass()) {
-    UpcomingList->SetEntryWidgetClass(UWidget_ReleaseItemEntry::StaticClass());
-  }
+  //if (UpcomingList && !UpcomingList->GetEntryWidgetClass()) {
+  //  UpcomingList->SetEntryWidgetClass(UWidget_ReleaseItemEntry::StaticClass());
+  //}
   PlayFadeIn();
 }
 

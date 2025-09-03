@@ -1,8 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Subsystems/GameInstanceSubsystem.h"
-#include "MusicLabelTypes.h"
+#include "MusicLabel/MusicLabelTypes.h"
 #include "ReleaseSubsystem.generated.h"
 
 class UArtistAsset;
