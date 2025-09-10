@@ -13,8 +13,15 @@ void UDashboardViewModel::RefreshAll()
     Kpi.ActiveCampaigns = 3;
 
     News.Reset();
-    News.Add({FText::FromString("Artist A tops charts"), FDateTime::UtcNow()});
-    News.Add({FText::FromString("Label signs new talent"), FDateTime::UtcNow() - FTimespan::FromDays(1)});
+    FNewsItem FirstNews;
+    FirstNews.Headline = TEXT("Artist A tops charts");
+    FirstNews.Date = FDateTime::UtcNow();
+    News.Add(FirstNews);
+
+    FNewsItem SecondNews;
+    SecondNews.Headline = TEXT("Label signs new talent");
+    SecondNews.Date = FDateTime::UtcNow() - FTimespan::FromDays(1);
+    News.Add(SecondNews);
 
     Releases.Reset();
     Releases.Add({FText::FromString("Album X"), FText::FromString("LP"), FDateTime::UtcNow() + FTimespan::FromDays(5)});

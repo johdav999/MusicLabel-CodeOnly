@@ -28,6 +28,12 @@ public:
     UFUNCTION(BlueprintCallable)
     void SetNews(const TArray<FNewsItem>& InNews);
 
+    UFUNCTION(BlueprintCallable)
+    void AddNewsItemToTop(const FNewsItem& Item);
+
+    UFUNCTION(BlueprintCallable)
+    void RemoveLastNewsItem();
+
 protected:
     UPROPERTY(meta=(BindWidget))
     UListView* NewsList;
