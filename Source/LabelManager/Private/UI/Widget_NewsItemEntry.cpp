@@ -7,8 +7,9 @@ void UWidget_NewsItemEntry::NativeOnListItemObjectSet(UObject* ListItem)
     UNewsItemObject* Obj = Cast<UNewsItemObject>(ListItem);
     if (Obj && HeadlineText)
     {
-        HeadlineText->SetText(Obj->Item.Headline);
-        HeadlineText->SetToolTipText(Obj->Item.Headline);
+        const FText Headline = FText::FromString(Obj->Item.Headline);
+        HeadlineText->SetText(Headline);
+        HeadlineText->SetToolTipText(Headline);
     }
     if (Obj && DateText)
     {
