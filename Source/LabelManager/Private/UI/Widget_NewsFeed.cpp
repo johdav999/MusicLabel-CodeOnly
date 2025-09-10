@@ -28,6 +28,28 @@ void UWidget_NewsFeed::SetNews(const TArray<FNewsItem> &InNews) {
   NewsList->SetListItems(Items);
 }
 
+void UWidget_NewsFeed::AddNewsItemToTop(const FNewsItem &Item) {
+  if (!NewsList)
+    return;
+  TArray<UObject *> Items = NewsList->GetListItems();
+  UNewsItemObject *Obj = NewObject<UNewsItemObject>(this);
+  Obj->Item = Item;
+  Items.Insert(Obj, 0);
+  NewsList->ClearListItems();
+  NewsList->SetListItems(Items);
+}
+
+void UWidget_NewsFeed::RemoveLastNewsItem() {
+  if (!NewsList)
+    return;
+  TArray<UObject *> Items = NewsList->GetListItems();
+  if (Items.Num() > 0) {
+    Items.Pop();
+    NewsList->ClearListItems();
+    NewsList->SetListItems(Items);
+  }
+}
+
 void UWidget_NewsFeed::PlayFadeIn() {
   SetRenderOpacity(0.f);
   float Opacity = 0.f;
