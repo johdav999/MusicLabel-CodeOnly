@@ -12,7 +12,6 @@ class LABELMANAGER_API ULayout : public UUserWidget
     GENERATED_BODY()
 
 protected:
-    virtual TSharedRef<SWidget> RebuildWidget() override;
 
     UPROPERTY()
     UCanvasPanel* RootCanvas;
