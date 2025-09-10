@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
+#include "MusicLabel/MusicLabelTypes.h"
 #include "DashboardViewModel.generated.h"
 
 USTRUCT(BlueprintType)
@@ -23,15 +24,9 @@ struct FKpiMetrics
 };
 
 USTRUCT(BlueprintType)
-struct FNewsItem
+struct FNewsItem : public FGameEvent
 {
     GENERATED_BODY()
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    FText Headline;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    FDateTime Date;
 };
 
 USTRUCT(BlueprintType)
