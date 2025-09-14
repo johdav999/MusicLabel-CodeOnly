@@ -1,5 +1,6 @@
 #include "EventSubsystem.h"
 #include "Engine/World.h"
+#include "LabelManager/public/LabelDataAssets.h"
 #include "TimerManager.h"
 
 void UEventSubsystem::TriggerEvent(const FGameEvent& Event)

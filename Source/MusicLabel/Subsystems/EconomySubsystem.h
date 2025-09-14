@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "Subsystems/GameInstanceSubsystem.h"
-#include "MusicLabel/MusicLabelTypes.h"
+#include "LabelManager/public/LabelDataAssets.h"
 #include "EconomySubsystem.generated.h"
 
 /** Handles financial calculations and tracking. */

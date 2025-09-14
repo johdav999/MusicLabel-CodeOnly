@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
-#include "MusicLabel/MusicLabelTypes.h"
+#include "LabelManager/public/LabelDataAssets.h"
 #include "DashboardViewModel.generated.h"
 
 USTRUCT(BlueprintType)

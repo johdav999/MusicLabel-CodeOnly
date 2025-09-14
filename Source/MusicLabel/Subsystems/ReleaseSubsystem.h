@@ -1,7 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "MusicLabel/MusicLabelTypes.h"
+#include "LabelManager/Public/LabelDataAssets.h"
 #include "ReleaseSubsystem.generated.h"
 
 class UArtistAsset;
