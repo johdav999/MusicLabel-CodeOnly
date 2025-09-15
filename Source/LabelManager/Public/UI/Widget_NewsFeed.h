@@ -1,7 +1,9 @@
 #pragma once
 
+
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "Components/CanvasPanel.h"
 #include "DashboardViewModel.h"
 #include "TimerManager.h"
 #include "Components/ListView.h"        // <-- IMPORTANT
@@ -35,6 +37,10 @@ public:
     void RemoveLastNewsItem();
 
 protected:
+
+    UPROPERTY(meta = (BindWidget))
+    UCanvasPanel* RootCanvas;
+
     UPROPERTY(meta=(BindWidget))
     UListView* NewsList;
 

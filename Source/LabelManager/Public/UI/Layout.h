@@ -15,10 +15,10 @@ class LABELMANAGER_API ULayout : public UUserWidget
 
 protected:
 
-    UPROPERTY()
+    UPROPERTY(meta = (BindWidget))
     UCanvasPanel* RootCanvas;
 
-    UPROPERTY()
+    UPROPERTY(meta = (BindWidget))
     UWidget_NewsFeed* NewsFeedWidget;
 
 public:
