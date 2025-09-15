@@ -149,6 +149,12 @@ private:
     float MarketAppeal = 0.f;
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Attributes", meta=(AllowPrivateAccess="true"))
     float Stamina = 0.f;
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Attributes", meta=(AllowPrivateAccess="true"))
+    float Musicality = 0.f;
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Attributes", meta=(AllowPrivateAccess="true"))
+    float Creativity = 0.f;
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Attributes", meta=(AllowPrivateAccess="true"))
+    TArray<TSoftObjectPtr<UGenreAsset>> Genres;
 public:
     const FString& GetName() const { return Name; }
     const TArray<USongAsset*>& GetSongs() const { return Songs; }
@@ -157,6 +163,9 @@ public:
     float GetReliability() const { return Reliability; }
     float GetMarketAppeal() const { return MarketAppeal; }
     float GetStamina() const { return Stamina; }
+    float GetMusicality() const { return Musicality; }
+    float GetCreativity() const { return Creativity; }
+    const TArray<TSoftObjectPtr<UGenreAsset>>& GetGenres() const { return Genres; }
 };
 
 /** Contractual terms with an artist */
