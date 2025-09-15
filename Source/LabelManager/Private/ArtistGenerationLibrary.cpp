@@ -42,6 +42,20 @@ namespace
     {
         return RandomStream.FRandRange(40.f, 100.f);
     }
+
+    /** Shuffles the provided array using the supplied random stream. */
+    template<typename ArrayType>
+    void ShuffleArray(TArray<ArrayType>& Array, FRandomStream& RandomStream)
+    {
+        for (int32 Index = Array.Num() - 1; Index > 0; --Index)
+        {
+            const int32 SwapIndex = RandomStream.RandRange(0, Index);
+            if (SwapIndex != Index)
+            {
+                Array.Swap(Index, SwapIndex);
+            }
+        }
+    }
 }
 
 TArray<FArtistAttributes> UArtistGenerationLibrary::GenerateFiftiesRockArtists(int32 Count)
@@ -58,8 +72,8 @@ TArray<FArtistAttributes> UArtistGenerationLibrary::GenerateFiftiesRockArtists(i
 
     TArray<FString> ShuffledGivenNames = GivenNames;
     TArray<FString> ShuffledFamilyNames = FamilyNames;
-    RandomStream.Shuffle(ShuffledGivenNames);
-    RandomStream.Shuffle(ShuffledFamilyNames);
+    ShuffleArray(ShuffledGivenNames, RandomStream);
+    ShuffleArray(ShuffledFamilyNames, RandomStream);
 
     const TSoftObjectPtr<UGenreAsset> FiftysRockGenre(FiftysRockGenrePath);
     const TArray<TSoftObjectPtr<UGenreAsset>> ArtistGenres = { FiftysRockGenre };
