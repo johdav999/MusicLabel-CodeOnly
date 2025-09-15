@@ -2,6 +2,17 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "Components/CanvasPanel.h"
+#include "Components/CanvasPanel.h"
+#include "Components/Border.h"
+#include "Components/Overlay.h"
+#include "Components/OverlaySlot.h"
+#include "Components/VerticalBox.h"
+#include "Components/VerticalBoxSlot.h"
+#include "Components/HorizontalBox.h"
+#include "Components/HorizontalBoxSlot.h"
+#include "Components/TextBlock.h"
+#include "Components/Image.h"
 #include "Widget_NewArtistAudition.generated.h"
 
 class UTextBlock;
@@ -17,6 +28,15 @@ public:
     virtual TSharedRef<SWidget> RebuildWidget() override;
 
 protected:
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget), Category = "Widgets")
+    UCanvasPanel* CanvasRoot;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget), Category = "Widgets")
+    UTextBlock* TitleText;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget), Category = "Widgets")
+    UImage* ArtistImage;
+
     UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget), Category = "Widgets")
     UTextBlock* ArtistNameText;
 

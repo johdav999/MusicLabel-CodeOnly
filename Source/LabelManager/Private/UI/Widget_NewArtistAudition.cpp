@@ -1,31 +1,23 @@
 #include "UI/Widget_NewArtistAudition.h"
 #include "Blueprint/WidgetTree.h"
-#include "Components/CanvasPanel.h"
-#include "Components/Border.h"
-#include "Components/Overlay.h"
-#include "Components/OverlaySlot.h"
-#include "Components/VerticalBox.h"
-#include "Components/VerticalBoxSlot.h"
-#include "Components/HorizontalBox.h"
-#include "Components/HorizontalBoxSlot.h"
-#include "Components/TextBlock.h"
-#include "Components/Image.h"
+
 #include "Components/GridPanel.h"
 #include "Components/ProgressBar.h"
 #include "Components/Slider.h"
+#include "Components/CanvasPanelSlot.h"
 #include "Components/Button.h"
 
 TSharedRef<SWidget> UWidget_NewArtistAudition::RebuildWidget()
 {
     WidgetTree = NewObject<UWidgetTree>(this, TEXT("WidgetTree"));
 
-    UCanvasPanel* RootCanvas = WidgetTree->ConstructWidget<UCanvasPanel>(UCanvasPanel::StaticClass(), TEXT("RootCanvas"));
-    WidgetTree->RootWidget = RootCanvas;
+	CanvasRoot = WidgetTree->ConstructWidget<UCanvasPanel>(UCanvasPanel::StaticClass(), TEXT("CanvasRoot"));    
+    WidgetTree->RootWidget = CanvasRoot;
 
     UBorder* OuterBorder = WidgetTree->ConstructWidget<UBorder>(UBorder::StaticClass(), TEXT("OuterBorder"));
     OuterBorder->SetPadding(FMargin(16.f));
     OuterBorder->SetBrushColor(FLinearColor(0.05f, 0.05f, 0.05f, 1.f));
-    UCanvasPanelSlot* BorderSlot = RootCanvas->AddChildToCanvas(OuterBorder);
+    UCanvasPanelSlot* BorderSlot = CanvasRoot->AddChildToCanvas(OuterBorder);
     BorderSlot->SetAnchors(FAnchors(0.f, 0.f, 1.f, 1.f));
     BorderSlot->SetOffsets(FMargin(0.f));
 
@@ -50,15 +42,15 @@ TSharedRef<SWidget> UWidget_NewArtistAudition::RebuildWidget()
     UHorizontalBox* HeaderBox = WidgetTree->ConstructWidget<UHorizontalBox>(UHorizontalBox::StaticClass(), TEXT("HeaderBox"));
     VBox->AddChildToVerticalBox(HeaderBox);
 
-    UImage* ArtistImage = WidgetTree->ConstructWidget<UImage>(UImage::StaticClass(), TEXT("ArtistImage"));
+    ArtistImage = WidgetTree->ConstructWidget<UImage>(UImage::StaticClass(), TEXT("ArtistImage"));
     ArtistImage->SetColorAndOpacity(FLinearColor(1.f, 0.8f, 0.f, 1.f));
-    HeaderBox->AddChildToHorizontalBox(ArtistImage);
+    CanvasRoot ->AddChildToCanvas(ArtistImage);
 
     UVerticalBox* HeaderTexts = WidgetTree->ConstructWidget<UVerticalBox>(UVerticalBox::StaticClass(), TEXT("HeaderTexts"));
     UHorizontalBoxSlot* HeaderTextSlot = HeaderBox->AddChildToHorizontalBox(HeaderTexts);
     HeaderTextSlot->SetPadding(FMargin(8.f, 0.f));
 
-    UTextBlock* TitleText = WidgetTree->ConstructWidget<UTextBlock>(UTextBlock::StaticClass(), TEXT("TitleText"));
+    TitleText = WidgetTree->ConstructWidget<UTextBlock>(UTextBlock::StaticClass(), TEXT("TitleText"));
     TitleText->SetText(FText::FromString(TEXT("New Artist Audition")));
     TitleText->SetColorAndOpacity(FSlateColor(FLinearColor(1.f, 0.8f, 0.f, 1.f)));
     HeaderTexts->AddChildToVerticalBox(TitleText);
