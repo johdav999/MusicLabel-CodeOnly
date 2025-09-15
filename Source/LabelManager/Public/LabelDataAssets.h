@@ -138,7 +138,7 @@ private:
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Attributes", meta=(AllowPrivateAccess="true"))
     FString Name;
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Attributes", meta=(AllowPrivateAccess="true"))
-    TArray<FSong> Songs;
+    TArray<USongAsset*> Songs;
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Attributes", meta=(AllowPrivateAccess="true"))
     float Talent = 0.f;
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Attributes", meta=(AllowPrivateAccess="true"))
@@ -151,7 +151,7 @@ private:
     float Stamina = 0.f;
 public:
     const FString& GetName() const { return Name; }
-    const TArray<FSong>& GetSongs() const { return Songs; }
+    const TArray<USongAsset*>& GetSongs() const { return Songs; }
     float GetTalent() const { return Talent; }
     float GetCharisma() const { return Charisma; }
     float GetReliability() const { return Reliability; }

@@ -25,9 +25,11 @@ class LABELMANAGER_API UWidget_NewArtistAudition : public UUserWidget
 {
     GENERATED_BODY()
 public:
-    virtual TSharedRef<SWidget> RebuildWidget() override;
+    //virtual TSharedRef<SWidget> RebuildWidget() override;
 
 protected:
+    virtual void NativeConstruct() override;
+
     UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget), Category = "Widgets")
     UCanvasPanel* CanvasRoot;
 
@@ -66,5 +68,12 @@ protected:
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget), Category = "Widgets")
     UButton* PassButton;
+
+private:
+    UFUNCTION()
+    void OnSignClicked();
+
+    UFUNCTION()
+    void OnPassClicked();
 };
 
