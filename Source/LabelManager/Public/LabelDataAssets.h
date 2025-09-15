@@ -166,6 +166,17 @@ public:
     float GetMusicality() const { return Musicality; }
     float GetCreativity() const { return Creativity; }
     const TArray<TSoftObjectPtr<UGenreAsset>>& GetGenres() const { return Genres; }
+
+    void SetName(const FString& InName) { Name = InName; }
+    void SetSongs(const TArray<USongAsset*>& InSongs) { Songs = InSongs; }
+    void SetTalent(float InTalent) { Talent = InTalent; }
+    void SetCharisma(float InCharisma) { Charisma = InCharisma; }
+    void SetReliability(float InReliability) { Reliability = InReliability; }
+    void SetMarketAppeal(float InMarketAppeal) { MarketAppeal = InMarketAppeal; }
+    void SetStamina(float InStamina) { Stamina = InStamina; }
+    void SetMusicality(float InMusicality) { Musicality = InMusicality; }
+    void SetCreativity(float InCreativity) { Creativity = InCreativity; }
+    void SetGenres(const TArray<TSoftObjectPtr<UGenreAsset>>& InGenres) { Genres = InGenres; }
 };
 
 /** Contractual terms with an artist */
