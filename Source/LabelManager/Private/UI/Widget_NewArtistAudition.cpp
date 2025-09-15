@@ -2,15 +2,8 @@
 #include "Blueprint/WidgetTree.h"
 #include "Components/CanvasPanel.h"
 #include "Components/Border.h"
-#include "Components/Overlay.h"
-#include "Components/OverlaySlot.h"
-#include "Components/VerticalBox.h"
-#include "Components/VerticalBoxSlot.h"
-#include "Components/HorizontalBox.h"
-#include "Components/HorizontalBoxSlot.h"
 #include "Components/TextBlock.h"
 #include "Components/Image.h"
-#include "Components/GridPanel.h"
 #include "Components/ProgressBar.h"
 #include "Components/Slider.h"
 #include "Components/Button.h"
@@ -22,131 +15,162 @@ TSharedRef<SWidget> UWidget_NewArtistAudition::RebuildWidget()
     UCanvasPanel* RootCanvas = WidgetTree->ConstructWidget<UCanvasPanel>(UCanvasPanel::StaticClass(), TEXT("RootCanvas"));
     WidgetTree->RootWidget = RootCanvas;
 
+    // Background
     UBorder* OuterBorder = WidgetTree->ConstructWidget<UBorder>(UBorder::StaticClass(), TEXT("OuterBorder"));
-    OuterBorder->SetPadding(FMargin(16.f));
     OuterBorder->SetBrushColor(FLinearColor(0.05f, 0.05f, 0.05f, 1.f));
     UCanvasPanelSlot* BorderSlot = RootCanvas->AddChildToCanvas(OuterBorder);
     BorderSlot->SetAnchors(FAnchors(0.f, 0.f, 1.f, 1.f));
     BorderSlot->SetOffsets(FMargin(0.f));
+    BorderSlot->SetZOrder(0);
 
-    UOverlay* Overlay = WidgetTree->ConstructWidget<UOverlay>(UOverlay::StaticClass(), TEXT("Overlay"));
-    OuterBorder->SetContent(Overlay);
-
+    // Left stripe
     UImage* Stripe = WidgetTree->ConstructWidget<UImage>(UImage::StaticClass(), TEXT("Stripe"));
-    Stripe->SetColorAndOpacity(FLinearColor(1.f, 0.8f, 0.f, 1.f));
     FSlateBrush StripeBrush;
     StripeBrush.DrawAs = ESlateBrushDrawType::Image;
     StripeBrush.TintColor = FSlateColor(FLinearColor(1.f, 0.8f, 0.f, 1.f));
     StripeBrush.ImageSize = FVector2D(6.f, 1.f);
     Stripe->SetBrush(StripeBrush);
-    UOverlaySlot* StripeSlot = Overlay->AddChildToOverlay(Stripe);
-    StripeSlot->SetHorizontalAlignment(HAlign_Left);
-    StripeSlot->SetVerticalAlignment(VAlign_Fill);
+    UCanvasPanelSlot* StripeSlot = RootCanvas->AddChildToCanvas(Stripe);
+    StripeSlot->SetAnchors(FAnchors(0.f, 0.f, 0.f, 1.f));
+    StripeSlot->SetOffsets(FMargin(0.f, 0.f, 6.f, 0.f));
+    StripeSlot->SetZOrder(1);
 
-    UVerticalBox* VBox = WidgetTree->ConstructWidget<UVerticalBox>(UVerticalBox::StaticClass(), TEXT("RootVBox"));
-    UOverlaySlot* VBoxSlot = Overlay->AddChildToOverlay(VBox);
-    VBoxSlot->SetPadding(FMargin(12.f, 8.f, 12.f, 8.f));
-
-    UHorizontalBox* HeaderBox = WidgetTree->ConstructWidget<UHorizontalBox>(UHorizontalBox::StaticClass(), TEXT("HeaderBox"));
-    VBox->AddChildToVerticalBox(HeaderBox);
-
+    // Header
     UImage* ArtistImage = WidgetTree->ConstructWidget<UImage>(UImage::StaticClass(), TEXT("ArtistImage"));
     ArtistImage->SetColorAndOpacity(FLinearColor(1.f, 0.8f, 0.f, 1.f));
-    HeaderBox->AddChildToHorizontalBox(ArtistImage);
-
-    UVerticalBox* HeaderTexts = WidgetTree->ConstructWidget<UVerticalBox>(UVerticalBox::StaticClass(), TEXT("HeaderTexts"));
-    UHorizontalBoxSlot* HeaderTextSlot = HeaderBox->AddChildToHorizontalBox(HeaderTexts);
-    HeaderTextSlot->SetPadding(FMargin(8.f, 0.f));
+    UCanvasPanelSlot* ArtistSlot = RootCanvas->AddChildToCanvas(ArtistImage);
+    ArtistSlot->SetPosition(FVector2D(16.f, 16.f));
+    ArtistSlot->SetAutoSize(true);
+    ArtistSlot->SetZOrder(2);
 
     UTextBlock* TitleText = WidgetTree->ConstructWidget<UTextBlock>(UTextBlock::StaticClass(), TEXT("TitleText"));
     TitleText->SetText(FText::FromString(TEXT("New Artist Audition")));
     TitleText->SetColorAndOpacity(FSlateColor(FLinearColor(1.f, 0.8f, 0.f, 1.f)));
-    HeaderTexts->AddChildToVerticalBox(TitleText);
-
-    UHorizontalBox* NameGenre = WidgetTree->ConstructWidget<UHorizontalBox>(UHorizontalBox::StaticClass(), TEXT("NameGenre"));
-    HeaderTexts->AddChildToVerticalBox(NameGenre);
+    UCanvasPanelSlot* TitleSlot = RootCanvas->AddChildToCanvas(TitleText);
+    TitleSlot->SetPosition(FVector2D(64.f, 16.f));
+    TitleSlot->SetAutoSize(true);
+    TitleSlot->SetZOrder(2);
 
     ArtistNameText = WidgetTree->ConstructWidget<UTextBlock>(UTextBlock::StaticClass(), TEXT("ArtistNameText"));
     ArtistNameText->SetText(FText::FromString(TEXT("Artist")));
-    NameGenre->AddChildToHorizontalBox(ArtistNameText);
+    UCanvasPanelSlot* NameSlot = RootCanvas->AddChildToCanvas(ArtistNameText);
+    NameSlot->SetPosition(FVector2D(64.f, 48.f));
+    NameSlot->SetAutoSize(true);
+    NameSlot->SetZOrder(2);
 
     GenreText = WidgetTree->ConstructWidget<UTextBlock>(UTextBlock::StaticClass(), TEXT("GenreText"));
     GenreText->SetText(FText::FromString(TEXT("Genre")));
-    UHorizontalBoxSlot* GenreSlot = NameGenre->AddChildToHorizontalBox(GenreText);
-    GenreSlot->SetPadding(FMargin(8.f, 0.f));
     GenreText->SetColorAndOpacity(FSlateColor(FLinearColor(0.f, 0.7f, 1.f, 1.f)));
+    UCanvasPanelSlot* GenreSlot = RootCanvas->AddChildToCanvas(GenreText);
+    GenreSlot->SetPosition(FVector2D(170.f, 48.f));
+    GenreSlot->SetAutoSize(true);
+    GenreSlot->SetZOrder(2);
 
     UTextBlock* Subtitle = WidgetTree->ConstructWidget<UTextBlock>(UTextBlock::StaticClass(), TEXT("Subtitle"));
     Subtitle->SetText(FText::FromString(TEXT("Live audition recording.")));
     Subtitle->SetColorAndOpacity(FSlateColor(FLinearColor(0.6f, 0.6f, 0.6f, 1.f)));
-    VBox->AddChildToVerticalBox(Subtitle);
+    UCanvasPanelSlot* SubtitleSlot = RootCanvas->AddChildToCanvas(Subtitle);
+    SubtitleSlot->SetPosition(FVector2D(64.f, 80.f));
+    SubtitleSlot->SetAutoSize(true);
+    SubtitleSlot->SetZOrder(2);
 
-    UGridPanel* AttrGrid = WidgetTree->ConstructWidget<UGridPanel>(UGridPanel::StaticClass(), TEXT("AttrGrid"));
-    UVerticalBoxSlot* AttrSlot = VBox->AddChildToVerticalBox(AttrGrid);
-    AttrSlot->SetPadding(FMargin(0.f, 8.f));
+    const float LabelX = 64.f;
+    const float BarX = 170.f;
+    float CurrentY = 120.f;
 
     UTextBlock* MusicalityLabel = WidgetTree->ConstructWidget<UTextBlock>(UTextBlock::StaticClass(), TEXT("MusicalityLabel"));
     MusicalityLabel->SetText(FText::FromString(TEXT("Musicality")));
     MusicalityLabel->SetColorAndOpacity(FSlateColor(FLinearColor(1.f, 0.8f, 0.f, 1.f)));
-    AttrGrid->AddChildToGrid(MusicalityLabel, 0, 0);
+    UCanvasPanelSlot* MusLabelSlot = RootCanvas->AddChildToCanvas(MusicalityLabel);
+    MusLabelSlot->SetPosition(FVector2D(LabelX, CurrentY));
+    MusLabelSlot->SetAutoSize(true);
+
     MusicalityBar = WidgetTree->ConstructWidget<UProgressBar>(UProgressBar::StaticClass(), TEXT("MusicalityBar"));
     MusicalityBar->SetFillColorAndOpacity(FLinearColor(0.f, 0.8f, 1.f, 1.f));
-    AttrGrid->AddChildToGrid(MusicalityBar, 0, 1);
+    UCanvasPanelSlot* MusBarSlot = RootCanvas->AddChildToCanvas(MusicalityBar);
+    MusBarSlot->SetPosition(FVector2D(BarX, CurrentY));
+    MusBarSlot->SetSize(FVector2D(150.f, 8.f));
 
+    CurrentY += 24.f;
     UTextBlock* CharismaLabel = WidgetTree->ConstructWidget<UTextBlock>(UTextBlock::StaticClass(), TEXT("CharismaLabel"));
     CharismaLabel->SetText(FText::FromString(TEXT("Charisma")));
     CharismaLabel->SetColorAndOpacity(FSlateColor(FLinearColor(1.f, 0.f, 0.5f, 1.f)));
-    AttrGrid->AddChildToGrid(CharismaLabel, 1, 0);
+    UCanvasPanelSlot* ChaLabelSlot = RootCanvas->AddChildToCanvas(CharismaLabel);
+    ChaLabelSlot->SetPosition(FVector2D(LabelX, CurrentY));
+    ChaLabelSlot->SetAutoSize(true);
+
     CharismaBar = WidgetTree->ConstructWidget<UProgressBar>(UProgressBar::StaticClass(), TEXT("CharismaBar"));
     CharismaBar->SetFillColorAndOpacity(FLinearColor(1.f, 0.f, 0.5f, 1.f));
-    AttrGrid->AddChildToGrid(CharismaBar, 1, 1);
+    UCanvasPanelSlot* ChaBarSlot = RootCanvas->AddChildToCanvas(CharismaBar);
+    ChaBarSlot->SetPosition(FVector2D(BarX, CurrentY));
+    ChaBarSlot->SetSize(FVector2D(150.f, 8.f));
 
+    CurrentY += 24.f;
     UTextBlock* CreativityLabel = WidgetTree->ConstructWidget<UTextBlock>(UTextBlock::StaticClass(), TEXT("CreativityLabel"));
     CreativityLabel->SetText(FText::FromString(TEXT("Creativity")));
     CreativityLabel->SetColorAndOpacity(FSlateColor(FLinearColor(0.f, 0.7f, 1.f, 1.f)));
-    AttrGrid->AddChildToGrid(CreativityLabel, 2, 0);
+    UCanvasPanelSlot* CreLabelSlot = RootCanvas->AddChildToCanvas(CreativityLabel);
+    CreLabelSlot->SetPosition(FVector2D(LabelX, CurrentY));
+    CreLabelSlot->SetAutoSize(true);
+
     CreativityBar = WidgetTree->ConstructWidget<UProgressBar>(UProgressBar::StaticClass(), TEXT("CreativityBar"));
     CreativityBar->SetFillColorAndOpacity(FLinearColor(0.f, 0.7f, 1.f, 1.f));
-    AttrGrid->AddChildToGrid(CreativityBar, 2, 1);
+    UCanvasPanelSlot* CreBarSlot = RootCanvas->AddChildToCanvas(CreativityBar);
+    CreBarSlot->SetPosition(FVector2D(BarX, CurrentY));
+    CreBarSlot->SetSize(FVector2D(150.f, 8.f));
 
-    UHorizontalBox* ListeningBox = WidgetTree->ConstructWidget<UHorizontalBox>(UHorizontalBox::StaticClass(), TEXT("ListeningBox"));
-    VBox->AddChildToVerticalBox(ListeningBox);
+    // Now listening section
     UImage* VinylImage = WidgetTree->ConstructWidget<UImage>(UImage::StaticClass(), TEXT("VinylImage"));
-    ListeningBox->AddChildToHorizontalBox(VinylImage);
+    UCanvasPanelSlot* VinylSlot = RootCanvas->AddChildToCanvas(VinylImage);
+    VinylSlot->SetPosition(FVector2D(BarX + 170.f, 120.f));
+    VinylSlot->SetAutoSize(true);
+
     UTextBlock* NowListening = WidgetTree->ConstructWidget<UTextBlock>(UTextBlock::StaticClass(), TEXT("NowListening"));
     NowListening->SetText(FText::FromString(TEXT("Now Listening: Venue Performance")));
-    UHorizontalBoxSlot* NowSlot = ListeningBox->AddChildToHorizontalBox(NowListening);
-    NowSlot->SetPadding(FMargin(8.f, 0.f));
+    UCanvasPanelSlot* NowSlot = RootCanvas->AddChildToCanvas(NowListening);
+    NowSlot->SetPosition(FVector2D(BarX + 210.f, 120.f));
+    NowSlot->SetAutoSize(true);
 
-    UVerticalBox* ContractBox = WidgetTree->ConstructWidget<UVerticalBox>(UVerticalBox::StaticClass(), TEXT("ContractBox"));
-    VBox->AddChildToVerticalBox(ContractBox);
-
+    // Contract section
+    CurrentY = 220.f;
     UTextBlock* BidLabel = WidgetTree->ConstructWidget<UTextBlock>(UTextBlock::StaticClass(), TEXT("BidLabel"));
     BidLabel->SetText(FText::FromString(TEXT("Bid")));
-    ContractBox->AddChildToVerticalBox(BidLabel);
+    UCanvasPanelSlot* BidLabelSlot = RootCanvas->AddChildToCanvas(BidLabel);
+    BidLabelSlot->SetPosition(FVector2D(LabelX, CurrentY));
+    BidLabelSlot->SetAutoSize(true);
+
     BidSlider = WidgetTree->ConstructWidget<USlider>(USlider::StaticClass(), TEXT("BidSlider"));
-    ContractBox->AddChildToVerticalBox(BidSlider);
+    UCanvasPanelSlot* BidSliderSlot = RootCanvas->AddChildToCanvas(BidSlider);
+    BidSliderSlot->SetPosition(FVector2D(LabelX, CurrentY + 20.f));
+    BidSliderSlot->SetSize(FVector2D(200.f, 20.f));
 
     UTextBlock* YearsLabel = WidgetTree->ConstructWidget<UTextBlock>(UTextBlock::StaticClass(), TEXT("YearsLabel"));
     YearsLabel->SetText(FText::FromString(TEXT("Years")));
-    ContractBox->AddChildToVerticalBox(YearsLabel);
+    UCanvasPanelSlot* YearsLabelSlot = RootCanvas->AddChildToCanvas(YearsLabel);
+    YearsLabelSlot->SetPosition(FVector2D(LabelX, CurrentY + 52.f));
+    YearsLabelSlot->SetAutoSize(true);
+
     YearsSlider = WidgetTree->ConstructWidget<USlider>(USlider::StaticClass(), TEXT("YearsSlider"));
-    ContractBox->AddChildToVerticalBox(YearsSlider);
+    UCanvasPanelSlot* YearsSliderSlot = RootCanvas->AddChildToCanvas(YearsSlider);
+    YearsSliderSlot->SetPosition(FVector2D(LabelX, CurrentY + 72.f));
+    YearsSliderSlot->SetSize(FVector2D(200.f, 20.f));
 
     ROIText = WidgetTree->ConstructWidget<UTextBlock>(UTextBlock::StaticClass(), TEXT("ROIText"));
     ROIText->SetText(FText::FromString(TEXT("Projected ROI")));
-    ContractBox->AddChildToVerticalBox(ROIText);
+    UCanvasPanelSlot* RoiSlot = RootCanvas->AddChildToCanvas(ROIText);
+    RoiSlot->SetPosition(FVector2D(LabelX, CurrentY + 104.f));
+    RoiSlot->SetAutoSize(true);
 
-    UHorizontalBox* ButtonBox = WidgetTree->ConstructWidget<UHorizontalBox>(UHorizontalBox::StaticClass(), TEXT("ButtonBox"));
-    VBox->AddChildToVerticalBox(ButtonBox);
-
+    // Buttons
     SignButton = WidgetTree->ConstructWidget<UButton>(UButton::StaticClass(), TEXT("SignButton"));
     SignButton->SetBackgroundColor(FLinearColor(1.f, 0.8f, 0.f, 1.f));
     UTextBlock* SignLabel = WidgetTree->ConstructWidget<UTextBlock>(UTextBlock::StaticClass(), TEXT("SignLabel"));
     SignLabel->SetText(FText::FromString(TEXT("Sign Artist")));
     SignLabel->SetColorAndOpacity(FSlateColor(FLinearColor::Black));
     SignButton->AddChild(SignLabel);
-    ButtonBox->AddChildToHorizontalBox(SignButton);
+    UCanvasPanelSlot* SignSlot = RootCanvas->AddChildToCanvas(SignButton);
+    SignSlot->SetPosition(FVector2D(LabelX, CurrentY + 140.f));
+    SignSlot->SetSize(FVector2D(150.f, 40.f));
 
     PassButton = WidgetTree->ConstructWidget<UButton>(UButton::StaticClass(), TEXT("PassButton"));
     PassButton->SetBackgroundColor(FLinearColor(0.15f, 0.15f, 0.15f, 1.f));
@@ -154,8 +178,9 @@ TSharedRef<SWidget> UWidget_NewArtistAudition::RebuildWidget()
     PassLabel->SetText(FText::FromString(TEXT("Pass")));
     PassLabel->SetColorAndOpacity(FSlateColor(FLinearColor(0.7f, 0.7f, 0.7f, 1.f)));
     PassButton->AddChild(PassLabel);
-    UHorizontalBoxSlot* PassSlot = ButtonBox->AddChildToHorizontalBox(PassButton);
-    PassSlot->SetPadding(FMargin(8.f, 0.f));
+    UCanvasPanelSlot* PassSlot = RootCanvas->AddChildToCanvas(PassButton);
+    PassSlot->SetPosition(FVector2D(LabelX + 158.f, CurrentY + 140.f));
+    PassSlot->SetSize(FVector2D(100.f, 40.f));
 
     return WidgetTree->RootWidget->TakeWidget();
 }
