@@ -17,34 +17,34 @@ public:
     virtual TSharedRef<SWidget> RebuildWidget() override;
 
 protected:
-    UPROPERTY(meta = (BindWidget))
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget), Category = "Widgets")
     UTextBlock* ArtistNameText;
 
-    UPROPERTY(meta = (BindWidget))
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget), Category = "Widgets")
     UTextBlock* GenreText;
 
-    UPROPERTY(meta = (BindWidget))
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget), Category = "Widgets")
     UProgressBar* MusicalityBar;
 
-    UPROPERTY(meta = (BindWidget))
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget), Category = "Widgets")
     UProgressBar* CharismaBar;
 
-    UPROPERTY(meta = (BindWidget))
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget), Category = "Widgets")
     UProgressBar* CreativityBar;
 
-    UPROPERTY(meta = (BindWidget))
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget), Category = "Widgets")
     USlider* BidSlider;
 
-    UPROPERTY(meta = (BindWidget))
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget), Category = "Widgets")
     USlider* YearsSlider;
 
-    UPROPERTY(meta = (BindWidget))
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget), Category = "Widgets")
     UTextBlock* ROIText;
 
-    UPROPERTY(meta = (BindWidget))
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget), Category = "Widgets")
     UButton* SignButton;
 
-    UPROPERTY(meta = (BindWidget))
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget), Category = "Widgets")
     UButton* PassButton;
 };
 
