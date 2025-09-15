@@ -17,10 +17,10 @@ public:
     virtual void NativeOnListItemObjectSet(UObject* ListItem) override;
 
 protected:
-    UPROPERTY(meta=(BindWidget))
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget), Category = "Widgets")
     UTextBlock* HeadlineText;
 
-    UPROPERTY(meta=(BindWidget))
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget), Category = "Widgets")
     UTextBlock* DateText;
 
     void PlayFadeIn();

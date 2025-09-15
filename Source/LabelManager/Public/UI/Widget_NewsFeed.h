@@ -45,7 +45,7 @@ protected:
     UPROPERTY(meta = (BindWidget))
     UCanvasPanel* RootCanvas;
 
-    UPROPERTY(meta=(BindWidget))
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget),Category = "Widgets")
     UListView* NewsList;
 
     void PlayFadeIn();
