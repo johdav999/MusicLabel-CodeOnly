@@ -29,14 +29,7 @@ void UWidget_NewsFeed::SetNews(const TArray<FNewsItem> &InNews) {
 }
 
 void UWidget_NewsFeed::AddNewsItemToTop(const FNewsItem &Item) {
-  if (!NewsList)
-    return;
-  TArray<UObject *> Items = NewsList->GetListItems();
-  UNewsItemObject *Obj = NewObject<UNewsItemObject>(this);
-  Obj->Item = Item;
-  Items.Insert(Obj, 0);
-  NewsList->ClearListItems();
-  NewsList->SetListItems(Items);
+  OnAddNewsItemToTop(Item);
 }
 
 void UWidget_NewsFeed::RemoveLastNewsItem() {

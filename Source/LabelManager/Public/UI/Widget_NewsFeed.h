@@ -31,6 +31,10 @@ public:
     UFUNCTION(BlueprintCallable)
     void AddNewsItemToTop(const FNewsItem& Item);
 
+    // Called when a news item should be added to the top of the list.
+    UFUNCTION(BlueprintImplementableEvent, Category="News")
+    void OnAddNewsItemToTop(const FNewsItem& Item);
+
     UFUNCTION(BlueprintCallable)
     void RemoveLastNewsItem();
 
