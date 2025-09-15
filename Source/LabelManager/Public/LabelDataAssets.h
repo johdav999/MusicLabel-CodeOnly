@@ -136,6 +136,10 @@ struct FArtistAttributes
     GENERATED_BODY()
 private:
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Attributes", meta=(AllowPrivateAccess="true"))
+    FString Name;
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Attributes", meta=(AllowPrivateAccess="true"))
+    TArray<FSong> Songs;
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Attributes", meta=(AllowPrivateAccess="true"))
     float Talent = 0.f;
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Attributes", meta=(AllowPrivateAccess="true"))
     float Charisma = 0.f;
@@ -146,6 +150,8 @@ private:
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Attributes", meta=(AllowPrivateAccess="true"))
     float Stamina = 0.f;
 public:
+    const FString& GetName() const { return Name; }
+    const TArray<FSong>& GetSongs() const { return Songs; }
     float GetTalent() const { return Talent; }
     float GetCharisma() const { return Charisma; }
     float GetReliability() const { return Reliability; }
