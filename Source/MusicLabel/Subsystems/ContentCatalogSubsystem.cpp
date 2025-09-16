@@ -12,10 +12,13 @@ void UContentCatalogSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 
     for (int32 Index = 0; Index < FiftiesRockArtists.Num(); ++Index)
     {
-        const FString& ArtistName = FiftiesRockArtists[Index].GetName();
-        if (!ArtistName.IsEmpty())
+        if (UArtistAsset* Artist = FiftiesRockArtists[Index])
         {
-            FiftiesRockArtistIndexByName.Add(FName(*ArtistName), Index);
+            const FString& ArtistName = Artist->GetName();
+            if (!ArtistName.IsEmpty())
+            {
+                FiftiesRockArtistIndexByName.Add(FName(*ArtistName), Index);
+            }
         }
     }
 }
@@ -35,14 +38,19 @@ TArray<FString> UContentCatalogSubsystem::GetGenreTrends() const
     return {};
 }
 
-bool UContentCatalogSubsystem::TryGetFiftiesRockArtistByName(FName ArtistName, FArtistAttributes& OutArtist) const
+bool UContentCatalogSubsystem::TryGetFiftiesRockArtistByName(FName ArtistName, UArtistAsset*& OutArtist) const
 {
+    OutArtist = nullptr;
+
     if (const int32* ArtistIndex = FiftiesRockArtistIndexByName.Find(ArtistName))
     {
         if (FiftiesRockArtists.IsValidIndex(*ArtistIndex))
         {
-            OutArtist = FiftiesRockArtists[*ArtistIndex];
-            return true;
+            if (UArtistAsset* Artist = FiftiesRockArtists[*ArtistIndex])
+            {
+                OutArtist = Artist;
+                return true;
+            }
         }
     }
 

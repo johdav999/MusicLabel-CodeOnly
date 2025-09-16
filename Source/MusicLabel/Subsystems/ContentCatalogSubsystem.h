@@ -32,11 +32,11 @@ public:
 
     /** Access the generated 50ies rock artists. */
     UFUNCTION(BlueprintCallable, Category="ContentCatalog")
-    TArray<FArtistAttributes> GetFiftiesRockArtists() const { return FiftiesRockArtists; }
+    TArray<UArtistAsset*> GetFiftiesRockArtists() const { return FiftiesRockArtists; }
 
     /** Find a generated 50ies rock artist by name. */
     UFUNCTION(BlueprintCallable, Category="ContentCatalog")
-    bool TryGetFiftiesRockArtistByName(FName ArtistName, FArtistAttributes& OutArtist) const;
+    bool TryGetFiftiesRockArtistByName(FName ArtistName, UArtistAsset*& OutArtist) const;
 
 private:
     /** Map of song assets by identifier. */
@@ -48,8 +48,9 @@ private:
     /** Map of genre assets by name. */
     TMap<FName, UGenreAsset*> GenreAssets;
 
-    /** Generated artist attributes for 50ies rock artists available at runtime. */
-    TArray<FArtistAttributes> FiftiesRockArtists;
+    /** Generated artist assets for 50ies rock artists available at runtime. */
+    UPROPERTY(Transient)
+    TArray<UArtistAsset*> FiftiesRockArtists;
 
     /** Index lookup for generated 50ies rock artists by name. */
     TMap<FName, int32> FiftiesRockArtistIndexByName;

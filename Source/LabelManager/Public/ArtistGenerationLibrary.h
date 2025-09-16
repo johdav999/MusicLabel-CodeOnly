@@ -16,6 +16,6 @@ public:
      * @param Count Number of artists to create. Defaults to 5 when invoked from Blueprints.
      */
     UFUNCTION(BlueprintCallable, Category="Artist Generation")
-    static TArray<FArtistAttributes> GenerateFiftiesRockArtists(int32 Count = 5);
+    static TArray<UArtistAsset*> GenerateFiftiesRockArtists(int32 Count = 5);
 };
 

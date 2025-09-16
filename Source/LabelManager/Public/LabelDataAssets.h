@@ -191,11 +191,15 @@ private:
     float RoyaltySplit = 0.f;
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Contract", meta = (AllowPrivateAccess = "true"))
-	int32 RecordsNumber = 1; // Number of records in the contract
+        int32 RecordsNumber = 1; // Number of records in the contract
 public:
     int32 GetAdvance() const { return Advance; }
     float GetRoyaltySplit() const { return RoyaltySplit; }
     int32 GetRecordsNumber() const { return RecordsNumber; }
+
+    void SetAdvance(int32 InAdvance) { Advance = InAdvance; }
+    void SetRoyaltySplit(float InRoyaltySplit) { RoyaltySplit = InRoyaltySplit; }
+    void SetRecordsNumber(int32 InRecordsNumber) { RecordsNumber = InRecordsNumber; }
 };
 
 /** Song data asset */
@@ -267,6 +271,14 @@ public:
     UFUNCTION(BlueprintPure, Category="Artist") const FContractTerms& GetContractTerms() const { return ContractTerms; }
 
     virtual FPrimaryAssetId GetPrimaryAssetId() const override;
+
+    void SetName(const FString& InName) { Name = InName; }
+    void SetType(EArtistType InType) { Type = InType; }
+    void SetAttributes(const FArtistAttributes& InAttributes) { Attributes = InAttributes; }
+    void SetGenreAffinity(const TArray<TSoftObjectPtr<UGenreAsset>>& InGenreAffinity) { GenreAffinity = InGenreAffinity; }
+    void SetPersonalityFlags(const TArray<EPersonalityFlag>& InPersonalityFlags) { PersonalityFlags = InPersonalityFlags; }
+    void SetMetaHumanProfileRef(const TSoftObjectPtr<UObject>& InMetaHumanProfileRef) { MetaHumanProfileRef = InMetaHumanProfileRef; }
+    void SetContractTerms(const FContractTerms& InContractTerms) { ContractTerms = InContractTerms; }
 
 private:
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Artist", meta=(AllowPrivateAccess="true"))
