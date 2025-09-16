@@ -189,6 +189,9 @@ private:
     int32 Advance = 0;
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Contract", meta=(AllowPrivateAccess="true"))
     float RoyaltySplit = 0.f;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Contract", meta = (AllowPrivateAccess = "true"))
+	int32 RecordsNumber = 1; // Number of records in the contract
 public:
     int32 GetAdvance() const { return Advance; }
     float GetRoyaltySplit() const { return RoyaltySplit; }
