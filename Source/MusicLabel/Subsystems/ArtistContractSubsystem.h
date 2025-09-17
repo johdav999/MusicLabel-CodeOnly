@@ -61,7 +61,7 @@ class MUSICLABEL_API UArtistContractSubsystem : public UGameInstanceSubsystem
 public:
     /** Sign an artist using the contract terms defined on their data asset. */
     UFUNCTION(BlueprintCallable, Category = "Contracts")
-    bool SignContract(UArtistAsset* Artist);
+    bool SignContract(UArtistAsset* Artist,FContractTerms Terms);
 
     /** Sign an artist using explicit contract terms. */
     UFUNCTION(BlueprintCallable, Category = "Contracts")

@@ -11,3 +11,10 @@ Intermediate/
 Saved/*
 !Saved/Config/**
 !Saved/Localization/**
+
+
+# Ignore all MP3 audio files
+*.mp3
+
+# Ignore all FBX 3D files
+*.fbx

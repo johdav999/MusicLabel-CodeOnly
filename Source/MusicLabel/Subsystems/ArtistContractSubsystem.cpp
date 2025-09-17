@@ -10,7 +10,7 @@ FArtistContract::FArtistContract()
 {
 }
 
-bool UArtistContractSubsystem::SignContract(UArtistAsset* Artist)
+bool UArtistContractSubsystem::SignContract(UArtistAsset* Artist,FContractTerms Terms)
 {
     if (!Artist)
     {
@@ -18,7 +18,7 @@ bool UArtistContractSubsystem::SignContract(UArtistAsset* Artist)
         return false;
     }
 
-    return SignContractWithTerms(Artist, Artist->GetContractTerms());
+    return SignContractWithTerms(Artist, Terms);
 }
 
 bool UArtistContractSubsystem::SignContractWithTerms(UArtistAsset* Artist, const FContractTerms& Terms)
