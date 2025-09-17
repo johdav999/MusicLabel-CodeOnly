@@ -28,6 +28,10 @@ public:
   UFUNCTION(BlueprintCallable, Category = "Events")
   void ScheduleEvent(const FGameEvent &Event);
 
+  /** Queue an event to be surfaced by the timed generator. */
+  UFUNCTION(BlueprintCallable, Category = "Events")
+  void AddPendingEvent(const FGameEvent &Event);
+
 private:
   /** Generate the next pending event. */
   void GenerateNextEvent();

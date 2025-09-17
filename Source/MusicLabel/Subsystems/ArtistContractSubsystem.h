@@ -94,6 +94,9 @@ private:
     FArtistContract* FindContract(UArtistAsset* Artist);
     const FArtistContract* FindContract(UArtistAsset* Artist) const;
 
+    /** Pushes a descriptive event into the event subsystem when an artist signs. */
+    void NotifyArtistSigned(UArtistAsset* Artist, const FContractTerms& Terms);
+
     /** Contracts tracked by this subsystem. */
     UPROPERTY()
     TArray<FArtistContract> ArtistContracts;
