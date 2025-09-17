@@ -41,6 +41,18 @@ void UEventSubsystem::ScheduleEvent(const FGameEvent &Event) {
   EventQueue.Add(Event);
 }
 
+void UEventSubsystem::AddPendingEvent(const FGameEvent &Event) {
+  PendingEvents.Add(Event);
+
+  if (UWorld *World = GetWorld()) {
+    FTimerManager &TimerManager = World->GetTimerManager();
+    if (!TimerManager.IsTimerActive(EventTimer)) {
+      TimerManager.SetTimer(EventTimer, this,
+                            &UEventSubsystem::GenerateNextEvent, 5.0f, true);
+    }
+  }
+}
+
 void UEventSubsystem::Initialize(FSubsystemCollectionBase &Collection) {
   Super::Initialize(Collection);
 

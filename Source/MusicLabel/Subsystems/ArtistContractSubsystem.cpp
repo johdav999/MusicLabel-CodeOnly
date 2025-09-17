@@ -1,6 +1,7 @@
 #include "ArtistContractSubsystem.h"
 
 #include "Engine/GameInstance.h"
+#include "EventSubsystem.h"
 #include "LabelManager/Public/LabelDataAssets.h"
 
 FArtistContract::FArtistContract()
@@ -39,6 +40,7 @@ bool UArtistContractSubsystem::SignContractWithTerms(UArtistAsset* Artist, const
             ExistingContract->SignedDate = FDateTime::UtcNow();
             ExistingContract->RecordsDelivered = 0;
             ExistingContract->Artist = Artist;
+            NotifyArtistSigned(Artist, Terms);
             return true;
         }
 
@@ -54,6 +56,7 @@ bool UArtistContractSubsystem::SignContractWithTerms(UArtistAsset* Artist, const
     NewContract.RecordsDelivered = 0;
 
     ArtistContracts.Add(NewContract);
+    NotifyArtistSigned(Artist, Terms);
     return true;
 }
 
@@ -153,5 +156,145 @@ const FArtistContract* UArtistContractSubsystem::FindContract(UArtistAsset* Arti
     }
 
     return nullptr;
+}
+
+void UArtistContractSubsystem::NotifyArtistSigned(UArtistAsset* Artist, const FContractTerms& Terms)
+{
+    if (!Artist)
+    {
+        return;
+    }
+
+    UGameInstance* GameInstance = GetGameInstance();
+    if (!GameInstance)
+    {
+        return;
+    }
+
+    UEventSubsystem* EventSubsystem = GameInstance->GetSubsystem<UEventSubsystem>();
+    if (!EventSubsystem)
+    {
+        return;
+    }
+
+    FGameEvent Event;
+    Event.Headline = FString::Printf(TEXT("%s Signs a Record Deal"), *Artist->GetName());
+    Event.Date = FDateTime::UtcNow();
+    Event.EventCategory = EEventCategory::ArtistSignedRecordDeal;
+
+    const TArray<TSoftObjectPtr<UGenreAsset>>& Genres = Artist->GetGenreAffinity();
+    TArray<FString> GenreNames;
+    GenreNames.Reserve(Genres.Num());
+
+    for (const TSoftObjectPtr<UGenreAsset>& GenrePtr : Genres)
+    {
+        if (const UGenreAsset* Genre = GenrePtr.Get())
+        {
+            GenreNames.Add(Genre->GetName());
+        }
+        else if (!GenrePtr.ToSoftObjectPath().IsNull())
+        {
+            GenreNames.Add(GenrePtr.GetAssetName());
+        }
+    }
+
+    FString GenreSummary;
+    if (GenreNames.Num() == 0)
+    {
+        GenreSummary = TEXT("their unique sound");
+    }
+    else if (GenreNames.Num() == 1)
+    {
+        GenreSummary = GenreNames[0];
+    }
+    else
+    {
+        GenreSummary = FString::Join(GenreNames, TEXT(", "));
+    }
+
+    const FArtistAttributes& Attributes = Artist->GetAttributes();
+    TArray<FString> Highlights;
+
+    if (Attributes.GetMusicality() >= 85.f)
+    {
+        Highlights.Add(TEXT("fantastic singer"));
+    }
+    else if (Attributes.GetMusicality() >= 70.f)
+    {
+        Highlights.Add(TEXT("strong vocalist"));
+    }
+
+    if (Attributes.GetCreativity() >= 85.f)
+    {
+        Highlights.Add(TEXT("brilliant songwriter"));
+    }
+    else if (Attributes.GetCreativity() >= 70.f)
+    {
+        Highlights.Add(TEXT("good songwriter"));
+    }
+
+    if (Attributes.GetCharisma() >= 85.f)
+    {
+        Highlights.Add(TEXT("captivating performer"));
+    }
+    else if (Attributes.GetMarketAppeal() >= 85.f)
+    {
+        Highlights.Add(TEXT("crowd favorite"));
+    }
+
+    FString HighlightSummary;
+    if (Highlights.Num() == 0)
+    {
+        HighlightSummary = TEXT("A promising all-around talent.");
+    }
+    else
+    {
+        TArray<FString> HighlightPhrases;
+        HighlightPhrases.Reserve(Highlights.Num());
+        for (const FString& Highlight : Highlights)
+        {
+            HighlightPhrases.Add(FString::Printf(TEXT("a %s"), *Highlight));
+        }
+
+        if (HighlightPhrases.Num() == 1)
+        {
+            HighlightSummary = FString::Printf(TEXT("Known for being %s."), *HighlightPhrases[0]);
+        }
+        else
+        {
+            FString Combined;
+            for (int32 Index = 0; Index < HighlightPhrases.Num(); ++Index)
+            {
+                if (Index == 0)
+                {
+                    Combined += HighlightPhrases[Index];
+                }
+                else if (Index == HighlightPhrases.Num() - 1)
+                {
+                    Combined += FString::Printf(TEXT(" and %s"), *HighlightPhrases[Index]);
+                }
+                else
+                {
+                    Combined += FString::Printf(TEXT(", %s"), *HighlightPhrases[Index]);
+                }
+            }
+
+            HighlightSummary = FString::Printf(TEXT("Known for being %s."), *Combined);
+        }
+    }
+
+    const int32 RecordCount = FMath::Max(1, Terms.GetRecordsNumber());
+    const FString DealSummary = RecordCount == 1
+                                    ? TEXT("a 1-record deal")
+                                    : FString::Printf(TEXT("a %d-record deal"), RecordCount);
+
+    Event.Description = FString::Printf(
+        TEXT("%s inked %s focused on %s. %s"),
+        *Artist->GetName(),
+        *DealSummary,
+        *GenreSummary,
+        *HighlightSummary);
+
+    EventSubsystem->AddPendingEvent(Event);
 }
 
