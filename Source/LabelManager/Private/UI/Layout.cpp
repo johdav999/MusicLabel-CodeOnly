@@ -1,8 +1,11 @@
 #include "UI/Layout.h"
 #include "Blueprint/WidgetTree.h"
 #include "Components/CanvasPanel.h"
+#include "Components/Widget.h"
 #include "UI/Widget_NewsFeed.h"
 #include "UI/Widget_SignedArtists.h"
+#include "Input/Events.h"
+#include "InputCoreTypes.h"
 
 
 
@@ -28,5 +31,32 @@ void ULayout::ShowSignedArtistsWidget()
     {
         SignedArtistsWidget->SetVisibility(ESlateVisibility::Visible);
     }
+}
+
+FReply ULayout::NativeOnMouseButtonUp(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
+{
+    const FReply SuperReply = Super::NativeOnMouseButtonUp(InGeometry, InMouseEvent);
+
+    if (InMouseEvent.GetEffectingButton() != EKeys::RightMouseButton)
+    {
+        return SuperReply;
+    }
+
+    if (RootCanvas)
+    {
+        const int32 ChildCount = RootCanvas->GetChildrenCount();
+        for (int32 ChildIndex = 0; ChildIndex < ChildCount; ++ChildIndex)
+        {
+            if (UWidget* ChildWidget = RootCanvas->GetChildAt(ChildIndex))
+            {
+                if (ChildWidget != NewsFeedWidget)
+                {
+                    ChildWidget->SetVisibility(ESlateVisibility::Hidden);
+                }
+            }
+        }
+    }
+
+    return FReply::Handled();
 }
 
