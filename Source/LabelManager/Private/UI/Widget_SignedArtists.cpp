@@ -10,7 +10,7 @@
 #include "Components/TextBlock.h"
 #include "Components/VerticalBox.h"
 #include "Components/VerticalBoxSlot.h"
-#include "Layout/SlateChildSize.h"
+//#include "Layout/SlateChildSize.h"
 
 #define LOCTEXT_NAMESPACE "WidgetSignedArtists"
 
@@ -268,7 +268,7 @@ void UWidget_SignedArtists::AddColumn(UHorizontalBox* Row,
     ETextJustify::Type Justify,
     const FLinearColor& Color,
     int32 FontSize,
-    const FMargin& Padding,
+    const FMargin& PaddingValue,
     float LetterSpacing,
     bool bBold)
 {
@@ -291,22 +291,22 @@ void UWidget_SignedArtists::AddColumn(UHorizontalBox* Row,
     }
     TextWidget->SetFont(FontInfo);
 
-    if (UHorizontalBoxSlot* Slot = Row->AddChildToHorizontalBox(TextWidget))
+    if (UHorizontalBoxSlot* BoxSlot = Row->AddChildToHorizontalBox(TextWidget))
     {
-        Slot->SetPadding(Padding);
-        Slot->SetHorizontalAlignment(HAlign);
-        Slot->SetVerticalAlignment(VAlign_Center);
+        BoxSlot->SetPadding(PaddingValue);
+        BoxSlot->SetHorizontalAlignment(HAlign);
+        BoxSlot->SetVerticalAlignment(VAlign_Center);
 
         if (FillWeight > 0.f)
         {
             FSlateChildSize FillSize;
             FillSize.SizeRule = ESlateSizeRule::Fill;
             FillSize.Value = FillWeight;
-            Slot->SetSize(FillSize);
+            BoxSlot->SetSize(FillSize);
         }
         else
         {
-            Slot->SetSize(FSlateChildSize(ESlateSizeRule::Automatic));
+            BoxSlot->SetSize(FSlateChildSize(ESlateSizeRule::Automatic));
         }
     }
 }
