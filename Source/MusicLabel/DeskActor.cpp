@@ -16,22 +16,28 @@ ADeskActor::ADeskActor()
 {
     PrimaryActorTick.bCanEverTick = false;
 
-    DeskMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("DeskMesh"));
-    SetRootComponent(DeskMesh);
-    DeskMesh->SetCollisionProfileName(UCollisionProfile::BlockAll_ProfileName);
-    DeskMesh->SetGenerateOverlapEvents(false);
-
+    // 1) Create the box first and make it root
     InteractionBox = CreateDefaultSubobject<UBoxComponent>(TEXT("InteractionBox"));
-    InteractionBox->SetupAttachment(RootComponent);
+    SetRootComponent(InteractionBox);
+
     InteractionBox->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
     InteractionBox->SetCollisionResponseToAllChannels(ECR_Ignore);
     InteractionBox->SetCollisionResponseToChannel(ECC_Visibility, ECR_Block);
-    InteractionBox->SetCollisionResponseToChannel(ECC_Camera, ECR_Block);
     InteractionBox->SetBoxExtent(FVector(DefaultBoxExtent));
     InteractionBox->SetHiddenInGame(true);
     InteractionBox->SetGenerateOverlapEvents(false);
     InteractionBox->SetCanEverAffectNavigation(false);
 
+    // 2) Create the mesh and attach to the box
+    DeskMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("DeskMesh"));
+    DeskMesh->SetupAttachment(InteractionBox);
+
+    DeskMesh->SetCollisionProfileName(UCollisionProfile::BlockAll_ProfileName);
+    DeskMesh->SetGenerateOverlapEvents(false);
+    // Important: make sure the mesh does NOT eat the mouse trace
+    DeskMesh->SetCollisionResponseToChannel(ECC_Visibility, ECR_Ignore);
+
+    // 3) Bind click on the box
     InteractionBox->OnClicked.AddDynamic(this, &ADeskActor::HandleDeskClicked);
 }
 
