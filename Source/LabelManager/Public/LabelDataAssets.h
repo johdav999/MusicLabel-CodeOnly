@@ -269,6 +269,7 @@ public:
     UFUNCTION(BlueprintPure, Category="Artist") const TArray<EPersonalityFlag>& GetPersonalityFlags() const { return PersonalityFlags; }
     UFUNCTION(BlueprintPure, Category="Artist") const TSoftObjectPtr<UObject>& GetMetaHumanProfileRef() const { return MetaHumanProfileRef; }
     UFUNCTION(BlueprintPure, Category="Artist") const FContractTerms& GetContractTerms() const { return ContractTerms; }
+    UFUNCTION(BlueprintPure, Category="Artist") int32 GetFanCount() const { return FanCount; }
 
     virtual FPrimaryAssetId GetPrimaryAssetId() const override;
 
@@ -279,6 +280,7 @@ public:
     void SetPersonalityFlags(const TArray<EPersonalityFlag>& InPersonalityFlags) { PersonalityFlags = InPersonalityFlags; }
     void SetMetaHumanProfileRef(const TSoftObjectPtr<UObject>& InMetaHumanProfileRef) { MetaHumanProfileRef = InMetaHumanProfileRef; }
     void SetContractTerms(const FContractTerms& InContractTerms) { ContractTerms = InContractTerms; }
+    void SetFanCount(int32 InFanCount) { FanCount = InFanCount; }
 
 private:
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Artist", meta=(AllowPrivateAccess="true"))
@@ -295,6 +297,8 @@ private:
     TSoftObjectPtr<UObject> MetaHumanProfileRef;
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Artist", meta=(AllowPrivateAccess="true"))
     FContractTerms ContractTerms;
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Artist", meta=(AllowPrivateAccess="true"))
+    int32 FanCount = 0;
 };
 
 /** Decade data asset */
