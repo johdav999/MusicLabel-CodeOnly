@@ -22,8 +22,7 @@ protected:
     UPROPERTY(meta = (BindWidget))
     UWidget_NewsFeed* NewsFeedWidget;
 
-    UPROPERTY(meta = (BindWidget))
-    UWidget_SignedArtists* SignedArtistsWidget;
+
 
 public:
     UFUNCTION(BlueprintCallable)
@@ -34,5 +33,8 @@ public:
 
     UFUNCTION(BlueprintCallable)
     void ShowSignedArtistsWidget();
+    
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite,meta = (BindWidget))
+    UWidget_SignedArtists* SignedArtistsWidget;
 };
 
