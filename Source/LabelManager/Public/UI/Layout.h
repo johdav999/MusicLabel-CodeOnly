@@ -6,6 +6,7 @@
 
 class UCanvasPanel;
 class UWidget_NewsFeed;
+class UWidget_SignedArtists;
 struct FNewsItem;
 
 UCLASS()
@@ -21,11 +22,17 @@ protected:
     UPROPERTY(meta = (BindWidget))
     UWidget_NewsFeed* NewsFeedWidget;
 
+    UPROPERTY(meta = (BindWidget))
+    UWidget_SignedArtists* SignedArtistsWidget;
+
 public:
     UFUNCTION(BlueprintCallable)
     void AddNewsItemToTop(const FNewsItem& Item);
 
     UFUNCTION(BlueprintCallable)
     void RemoveLastNewsItem();
+
+    UFUNCTION(BlueprintCallable)
+    void ShowSignedArtistsWidget();
 };
 
