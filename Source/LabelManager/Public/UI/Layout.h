@@ -2,6 +2,8 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "Input/Reply.h"
+#include "Input/Events.h"
 #include "Layout.generated.h"
 
 class UCanvasPanel;
@@ -34,5 +36,8 @@ public:
 
     UFUNCTION(BlueprintCallable)
     void ShowSignedArtistsWidget();
+
+protected:
+    virtual FReply NativeOnMouseButtonUp(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
 };
 
