@@ -2,6 +2,7 @@
 #include "Blueprint/WidgetTree.h"
 #include "Components/CanvasPanel.h"
 #include "UI/Widget_NewsFeed.h"
+#include "UI/Widget_SignedArtists.h"
 
 
 
@@ -18,6 +19,14 @@ void ULayout::RemoveLastNewsItem()
     if (NewsFeedWidget)
     {
         NewsFeedWidget->RemoveLastNewsItem();
+    }
+}
+
+void ULayout::ShowSignedArtistsWidget()
+{
+    if (SignedArtistsWidget)
+    {
+        SignedArtistsWidget->SetVisibility(ESlateVisibility::Visible);
     }
 }
 

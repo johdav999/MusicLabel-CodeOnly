@@ -4,6 +4,9 @@
 #include "Components/StaticMeshComponent.h"
 #include "Engine/CollisionProfile.h"
 #include "InputCoreTypes.h"
+#include "Blueprint/UserWidget.h"
+#include "Blueprint/WidgetBlueprintLibrary.h"
+#include "LabelManager/Public/UI/Layout.h"
 
 #define LOCTEXT_NAMESPACE "DeskActor"
 
@@ -79,6 +82,38 @@ FText ADeskActor::GetCompanyFunctionLabel() const
 void ADeskActor::HandleDeskClicked(UPrimitiveComponent* TouchedComponent, FKey ButtonPressed)
 {
     OnDeskClicked.Broadcast(this, CompanyFunction, GetCompanyFunctionLabel());
+
+    const auto ShowSignedArtists = [this]()
+    {
+        if (UWorld* World = GetWorld())
+        {
+            TArray<UUserWidget*> Widgets;
+            UWidgetBlueprintLibrary::GetAllWidgetsOfClass(World, Widgets, ULayout::StaticClass(), false);
+
+            if (Widgets.Num() > 0)
+            {
+                if (ULayout* LayoutWidget = Cast<ULayout>(Widgets[0]))
+                {
+                    LayoutWidget->ShowSignedArtistsWidget();
+                }
+            }
+        }
+    };
+
+    switch (CompanyFunction)
+    {
+    case EDeskCompanyFunction::ArtistRelations:
+        ShowSignedArtists();
+        break;
+    case EDeskCompanyFunction::Custom:
+        if (GetCompanyFunctionLabel().EqualTo(LOCTEXT("DeskFunctionArtistManagement", "Artist Mangement")))
+        {
+            ShowSignedArtists();
+        }
+        break;
+    default:
+        break;
+    }
 }
 
 #if WITH_EDITOR
