@@ -19,3 +19,4 @@ Saved/*
 # Ignore all FBX 3D files
 *.fbx
 *.uasset
+*.jpg
