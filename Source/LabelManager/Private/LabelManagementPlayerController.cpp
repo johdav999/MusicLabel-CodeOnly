@@ -25,8 +25,8 @@ void ALabelManagementPlayerController::MoveForward(float Value)
     {
         if (APawn* ControlledPawn = GetPawn())
         {
-            const FRotator ControlRotation(0.0f, GetControlRotation().Yaw, 0.0f);
-            const FVector Direction = FRotationMatrix(ControlRotation).GetUnitAxis(EAxis::X);
+            const FRotator rotControlRotation(0.0f, GetControlRotation().Yaw, 0.0f);
+            const FVector Direction = FRotationMatrix(rotControlRotation).GetUnitAxis(EAxis::X);
             ControlledPawn->AddMovementInput(Direction, Value);
         }
     }
@@ -38,8 +38,8 @@ void ALabelManagementPlayerController::MoveRight(float Value)
     {
         if (APawn* ControlledPawn = GetPawn())
         {
-            const FRotator ControlRotation(0.0f, GetControlRotation().Yaw, 0.0f);
-            const FVector Direction = FRotationMatrix(ControlRotation).GetUnitAxis(EAxis::Y);
+            const FRotator rotControlRotation(0.0f, GetControlRotation().Yaw, 0.0f);
+            const FVector Direction = FRotationMatrix(rotControlRotation).GetUnitAxis(EAxis::Y);
             ControlledPawn->AddMovementInput(Direction, Value);
         }
     }
