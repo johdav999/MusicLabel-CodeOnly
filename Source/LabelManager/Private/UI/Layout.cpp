@@ -41,9 +41,9 @@ void ULayout::ShowSignedArtistsWidget()
     }
 }
 
-FReply ULayout::NativeOnMouseButtonUp(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
+FReply ULayout::NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
 {
-    const FReply SuperReply = Super::NativeOnMouseButtonUp(InGeometry, InMouseEvent);
+    const FReply SuperReply = Super::NativeOnMouseButtonDown(InGeometry, InMouseEvent);
 
     if (InMouseEvent.GetEffectingButton() != EKeys::RightMouseButton)
     {
