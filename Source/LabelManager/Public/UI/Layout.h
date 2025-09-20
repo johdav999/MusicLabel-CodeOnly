@@ -35,8 +35,10 @@ public:
 
     UFUNCTION(BlueprintCallable)
     void ShowSignedArtistsWidget();
-    
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite,meta = (BindWidget))
+
+    virtual FReply NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadWrite,meta = (BindWidget))
     UWidget_SignedArtists* SignedArtistsWidget;
 };
 
