@@ -27,6 +27,7 @@ protected:
 
 
 public:
+    ULayout();
     UFUNCTION(BlueprintCallable)
     void AddNewsItemToTop(const FNewsItem& Item);
 
@@ -35,6 +36,8 @@ public:
 
     UFUNCTION(BlueprintCallable)
     void ShowSignedArtistsWidget();
+
+    FReply NativeOnMouseButtonUp(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent);
     
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite,meta = (BindWidget))
     UWidget_SignedArtists* SignedArtistsWidget;

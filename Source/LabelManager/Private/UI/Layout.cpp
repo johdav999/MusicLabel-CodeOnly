@@ -8,7 +8,15 @@
 #include "InputCoreTypes.h"
 
 
+ULayout::ULayout()
+{
+    FInputModeGameAndUI InputMode;
+    InputMode.SetWidgetToFocus(TakeWidget());
+    InputMode.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
 
+    GetWorld()->GetFirstPlayerController()->SetInputMode(InputMode);
+    GetWorld()->GetFirstPlayerController()->bShowMouseCursor = true;
+}
 void ULayout::AddNewsItemToTop(const FNewsItem& Item)
 {
     if (NewsFeedWidget)
