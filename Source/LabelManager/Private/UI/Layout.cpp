@@ -8,8 +8,9 @@
 #include "InputCoreTypes.h"
 
 
-ULayout::ULayout()
+void ULayout::NativeConstruct()
 {
+    Super::NativeConstruct();
     FInputModeGameAndUI InputMode;
     InputMode.SetWidgetToFocus(TakeWidget());
     InputMode.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
@@ -50,6 +51,13 @@ FReply ULayout::NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPoin
         return SuperReply;
     }
 
+    HideWindows();
+
+    return FReply::Handled();
+}
+
+void ULayout::HideWindows()
+{
     if (RootCanvas)
     {
         const int32 ChildCount = RootCanvas->GetChildrenCount();
@@ -64,7 +72,5 @@ FReply ULayout::NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPoin
             }
         }
     }
-
-    return FReply::Handled();
 }
 
