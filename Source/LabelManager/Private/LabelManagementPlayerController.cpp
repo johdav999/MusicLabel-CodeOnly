@@ -1,12 +1,33 @@
 #include "LabelManagementPlayerController.h"
 
 #include "GameFramework/Pawn.h"
+#include "LabelManagerGameInstance.h"
 #include "Math/RotationMatrix.h"
+#include "UI/Widget_DashboardLayout.h"
+#include "Engine/EngineBaseTypes.h"
 
 ALabelManagementPlayerController::ALabelManagementPlayerController()
 {
     bEnableClickEvents = true;
     bShowMouseCursor = true;
+}
+
+void ALabelManagementPlayerController::BeginPlay()
+{
+    Super::BeginPlay();
+
+    if (ULabelManagerGameInstance* GameInstance = GetGameInstance<ULabelManagerGameInstance>())
+    {
+        if (UWidget_DashboardLayout* Layout = GameInstance->EnsureLayoutForPlayer(this))
+        {
+            FInputModeGameAndUI InputMode;
+            InputMode.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
+            InputMode.SetWidgetToFocus(Layout->TakeWidget());
+
+            SetInputMode(InputMode);
+            bShowMouseCursor = true;
+        }
+    }
 }
 
 void ALabelManagementPlayerController::SetupInputComponent()

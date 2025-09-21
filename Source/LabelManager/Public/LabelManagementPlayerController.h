@@ -16,6 +16,7 @@ public:
     ALabelManagementPlayerController();
 
 protected:
+    virtual void BeginPlay() override;
     virtual void SetupInputComponent() override;
 
     /** Handles forward/backward motion using the assigned pawn. */
