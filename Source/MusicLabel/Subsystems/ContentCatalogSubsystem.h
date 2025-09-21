@@ -26,6 +26,10 @@ public:
     UFUNCTION(BlueprintCallable, Category="ContentCatalog")
     UArtistAsset* GetArtistByName(FName ArtistName) const;
 
+    /** Search for artists whose names include the provided query string. */
+    UFUNCTION(BlueprintCallable, Category="ContentCatalog")
+    TArray<UArtistAsset*> SearchArtistsByName(const FString& NameQuery) const;
+
     /** Gather trends across genres. */
     UFUNCTION(BlueprintCallable, Category="ContentCatalog")
     TArray<FString> GetGenreTrends() const;
