@@ -11,22 +11,11 @@ FArtistContract::FArtistContract()
 {
 }
 
-bool UArtistContractSubsystem::SignContract(UArtistAsset* Artist,FContractTerms Terms)
+bool UArtistContractSubsystem::ApplyContractInternal(UArtistAsset* Artist, const FContractTerms& Terms, const TCHAR* Context)
 {
     if (!Artist)
     {
-        UE_LOG(LogTemp, Warning, TEXT("SignContract called with invalid artist."));
-        return false;
-    }
-
-    return SignContractWithTerms(Artist, Terms);
-}
-
-bool UArtistContractSubsystem::SignContractWithTerms(UArtistAsset* Artist, const FContractTerms& Terms)
-{
-    if (!Artist)
-    {
-        UE_LOG(LogTemp, Warning, TEXT("SignContractWithTerms called with invalid artist."));
+        UE_LOG(LogTemp, Warning, TEXT("%s called with invalid artist."), Context);
         return false;
     }
 
@@ -40,7 +29,6 @@ bool UArtistContractSubsystem::SignContractWithTerms(UArtistAsset* Artist, const
             ExistingContract->SignedDate = FDateTime::UtcNow();
             ExistingContract->RecordsDelivered = 0;
             ExistingContract->Artist = Artist;
-            NotifyArtistSigned(Artist, Terms);
             return true;
         }
 
@@ -56,8 +44,29 @@ bool UArtistContractSubsystem::SignContractWithTerms(UArtistAsset* Artist, const
     NewContract.RecordsDelivered = 0;
 
     ArtistContracts.Add(NewContract);
-    NotifyArtistSigned(Artist, Terms);
     return true;
+}
+
+bool UArtistContractSubsystem::SignContract(UArtistAsset* Artist,FContractTerms Terms)
+{
+    const bool bSigned = ApplyContractInternal(Artist, Terms, TEXT("SignContract"));
+    if (bSigned)
+    {
+        NotifyArtistSigned(Artist, Terms);
+    }
+
+    return bSigned;
+}
+
+bool UArtistContractSubsystem::SignContractWithTerms(UArtistAsset* Artist, const FContractTerms& Terms)
+{
+    const bool bSigned = ApplyContractInternal(Artist, Terms, TEXT("SignContractWithTerms"));
+    if (bSigned)
+    {
+        NotifyArtistSigned(Artist, Terms);
+    }
+
+    return bSigned;
 }
 
 bool UArtistContractSubsystem::UpdateContractStatus(UArtistAsset* Artist, EContractStatus NewStatus)
