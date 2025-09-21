@@ -91,6 +91,9 @@ public:
     const TArray<FArtistContract>& GetContracts() const { return ArtistContracts; }
 
 private:
+    /** Core signing routine shared by public entry points. */
+    bool ApplyContractInternal(UArtistAsset* Artist, const FContractTerms& Terms, const TCHAR* Context);
+
     FArtistContract* FindContract(UArtistAsset* Artist);
     const FArtistContract* FindContract(UArtistAsset* Artist) const;
 
