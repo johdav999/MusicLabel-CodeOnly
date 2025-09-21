@@ -191,6 +191,7 @@ void UArtistContractSubsystem::NotifyArtistSigned(UArtistAsset* Artist, const FC
     Event.Date = FDateTime::UtcNow();
     Event.EventCategory = EEventCategory::ArtistSignedRecordDeal;
 
+
     const TArray<TSoftObjectPtr<UGenreAsset>>& Genres = Artist->GetGenreAffinity();
     TArray<FString> GenreNames;
     GenreNames.Reserve(Genres.Num());

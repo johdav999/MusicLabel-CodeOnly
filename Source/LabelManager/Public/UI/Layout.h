@@ -21,7 +21,7 @@ protected:
     UPROPERTY(meta = (BindWidget))
     UCanvasPanel* RootCanvas;
 
-    UPROPERTY(meta = (BindWidget))
+    UPROPERTY(VisibleAnywhere, BlueprintReadWrite, meta = (BindWidget))
     UWidget_NewsFeed* NewsFeedWidget;
 
 
