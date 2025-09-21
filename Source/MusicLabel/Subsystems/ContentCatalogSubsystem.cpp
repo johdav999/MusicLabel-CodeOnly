@@ -33,6 +33,49 @@ UArtistAsset* UContentCatalogSubsystem::GetArtistByName(FName ArtistName) const
     return nullptr;
 }
 
+TArray<UArtistAsset*> UContentCatalogSubsystem::SearchArtistsByName(const FString& NameQuery) const
+{
+    TArray<UArtistAsset*> MatchingArtists;
+
+    const FString TrimmedQuery = NameQuery.TrimStartAndEnd();
+    if (TrimmedQuery.IsEmpty())
+    {
+        return MatchingArtists;
+    }
+
+    const auto MatchesQuery = [&TrimmedQuery](UArtistAsset* Artist)
+    {
+        if (!Artist)
+        {
+            return false;
+        }
+
+        const FString& ArtistDisplayName = Artist->GetName();
+        return ArtistDisplayName.Contains(TrimmedQuery, ESearchCase::IgnoreCase);
+    };
+
+    for (const TPair<FName, UArtistAsset*>& Pair : ArtistAssets)
+    {
+        if (UArtistAsset* Artist = Pair.Value)
+        {
+            if (MatchesQuery(Artist))
+            {
+                MatchingArtists.Add(Artist);
+            }
+        }
+    }
+
+    for (UArtistAsset* Artist : FiftiesRockArtists)
+    {
+        if (MatchesQuery(Artist) && !MatchingArtists.Contains(Artist))
+        {
+            MatchingArtists.Add(Artist);
+        }
+    }
+
+    return MatchingArtists;
+}
+
 TArray<FString> UContentCatalogSubsystem::GetGenreTrends() const
 {
     return {};
