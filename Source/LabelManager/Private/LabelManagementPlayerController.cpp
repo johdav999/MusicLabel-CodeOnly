@@ -3,7 +3,7 @@
 #include "GameFramework/Pawn.h"
 #include "LabelManagerGameInstance.h"
 #include "Math/RotationMatrix.h"
-#include "UI/Widget_DashboardLayout.h"
+#include "UI/Layout.h"
 #include "Engine/EngineBaseTypes.h"
 
 ALabelManagementPlayerController::ALabelManagementPlayerController()
@@ -18,7 +18,7 @@ void ALabelManagementPlayerController::BeginPlay()
 
     if (ULabelManagerGameInstance* GameInstance = GetGameInstance<ULabelManagerGameInstance>())
     {
-        if (UWidget_DashboardLayout* Layout = GameInstance->EnsureLayoutForPlayer(this))
+        if (ULayout* Layout = GameInstance->EnsureLayoutForPlayer(this))
         {
             FInputModeGameAndUI InputMode;
             InputMode.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);

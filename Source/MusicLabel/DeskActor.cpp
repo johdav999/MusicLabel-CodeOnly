@@ -4,8 +4,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "Engine/CollisionProfile.h"
 #include "InputCoreTypes.h"
-#include "Blueprint/UserWidget.h"
-#include "Blueprint/WidgetBlueprintLibrary.h"
+#include "LabelManager/Public/LabelManagerGameInstance.h"
 #include "LabelManager/Public/UI/Layout.h"
 
 #define LOCTEXT_NAMESPACE "DeskActor"
@@ -87,12 +86,9 @@ void ADeskActor::HandleDeskClicked(UPrimitiveComponent* TouchedComponent, FKey B
     {
         if (UWorld* World = GetWorld())
         {
-            TArray<UUserWidget*> Widgets;
-            UWidgetBlueprintLibrary::GetAllWidgetsOfClass(World, Widgets, ULayout::StaticClass(), false);
-
-            if (Widgets.Num() > 0)
+            if (ULabelManagerGameInstance* GameInstance = World->GetGameInstance<ULabelManagerGameInstance>())
             {
-                if (ULayout* LayoutWidget = Cast<ULayout>(Widgets[0]))
+                if (ULayout* LayoutWidget = GameInstance->EnsureLayoutForPlayer(World->GetFirstPlayerController()))
                 {
                     LayoutWidget->ShowSignedArtistsWidget();
                 }

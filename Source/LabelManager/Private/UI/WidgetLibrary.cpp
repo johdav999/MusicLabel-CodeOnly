@@ -1,44 +1,37 @@
 #include "UI/WidgetLibrary.h"
-#include "UI/Widget_DashboardLayout.h"
-#include "UI/DashboardViewModel.h"
 #include "Blueprint/UserWidget.h"
 #include "LabelManagerGameInstance.h"
+#include "UI/Layout.h"
 #include "Engine/World.h"
 
-UWidget_DashboardLayout* UWidgetLibrary::CreateDashboard(UWorld* World, APlayerController* PC)
+ULayout* UWidgetLibrary::CreateDashboard(UWorld* World, APlayerController* PC)
 {
-    if (!World || !PC)
+    if (!World)
     {
         return nullptr;
     }
 
     if (ULabelManagerGameInstance* GameInstance = World->GetGameInstance<ULabelManagerGameInstance>())
     {
-        if (UWidget_DashboardLayout* Layout = GameInstance->EnsureLayoutForPlayer(PC))
-        {
-            UDashboardViewModel* ViewModel = NewObject<UDashboardViewModel>(World);
-            if (ViewModel)
-            {
-                ViewModel->RefreshAll();
-                Layout->SetViewModel(ViewModel);
-            }
-            return Layout;
-        }
+        return GameInstance->EnsureLayoutForPlayer(PC);
     }
 
-    UDashboardViewModel* ViewModel = NewObject<UDashboardViewModel>(World);
-    if (!ViewModel)
+    APlayerController* TargetPC = PC ? PC : World->GetFirstPlayerController();
+    ULayout* Layout = nullptr;
+
+    if (TargetPC)
     {
-        return nullptr;
+        Layout = CreateWidget<ULayout>(TargetPC, ULayout::StaticClass());
+    }
+    else
+    {
+        Layout = CreateWidget<ULayout>(World, ULayout::StaticClass());
     }
 
-    ViewModel->RefreshAll();
-
-    UWidget_DashboardLayout* Layout = CreateWidget<UWidget_DashboardLayout>(PC, UWidget_DashboardLayout::StaticClass());
     if (Layout)
     {
-        Layout->SetViewModel(ViewModel);
         Layout->AddToViewport();
     }
+
     return Layout;
 }

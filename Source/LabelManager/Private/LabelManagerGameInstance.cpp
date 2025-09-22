@@ -1,12 +1,12 @@
 #include "LabelManagerGameInstance.h"
 
 #include "Blueprint/UserWidget.h"
-#include "UI/Widget_DashboardLayout.h"
+#include "UI/Layout.h"
 #include "GameFramework/PlayerController.h"
 
 ULabelManagerGameInstance::ULabelManagerGameInstance()
 {
-    LayoutGUIClass = UWidget_DashboardLayout::StaticClass();
+    LayoutGUIClass = ULayout::StaticClass();
 }
 
 void ULabelManagerGameInstance::Init()
@@ -15,7 +15,7 @@ void ULabelManagerGameInstance::Init()
 
     if (!LayoutGUI && LayoutGUIClass)
     {
-        LayoutGUI = CreateWidget<UWidget_DashboardLayout>(this, LayoutGUIClass);
+        LayoutGUI = CreateWidget<ULayout>(this, LayoutGUIClass);
         if (LayoutGUI)
         {
             LayoutGUI->AddToViewport(0);
@@ -23,11 +23,11 @@ void ULabelManagerGameInstance::Init()
     }
 }
 
-UWidget_DashboardLayout* ULabelManagerGameInstance::EnsureLayoutForPlayer(APlayerController* OwningPlayer)
+ULayout* ULabelManagerGameInstance::EnsureLayoutForPlayer(APlayerController* OwningPlayer)
 {
     if (!LayoutGUI && LayoutGUIClass)
     {
-        LayoutGUI = CreateWidget<UWidget_DashboardLayout>(this, LayoutGUIClass);
+        LayoutGUI = CreateWidget<ULayout>(this, LayoutGUIClass);
     }
 
     if (!LayoutGUI)
