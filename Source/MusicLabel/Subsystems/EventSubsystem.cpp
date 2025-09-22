@@ -1,7 +1,6 @@
 #include "EventSubsystem.h"
-#include "Blueprint/WidgetBlueprintLibrary.h"
 #include "Engine/World.h"
-#include "LabelManager/Public/UI/DashboardViewModel.h"
+#include "LabelManager/Public/LabelManagerGameInstance.h"
 #include "LabelManager/Public/UI/Layout.h"
 #include "LabelManager/public/LabelDataAssets.h"
 #include "TimerManager.h"
@@ -11,11 +10,12 @@ void UEventSubsystem::TriggerEvent(const FGameEvent &Event) {
          *Event.Description);
 
   if (!LayoutWidget) {
-    TArray<UUserWidget *> Widgets;
-    UWidgetBlueprintLibrary::GetAllWidgetsOfClass(
-        GetWorld(), Widgets, ULayout::StaticClass(), false);
-    if (Widgets.Num() > 0) {
-      LayoutWidget = Cast<ULayout>(Widgets[0]);
+    if (UWorld *World = GetWorld()) {
+      if (ULabelManagerGameInstance *GameInstance =
+              World->GetGameInstance<ULabelManagerGameInstance>()) {
+        LayoutWidget =
+            GameInstance->EnsureLayoutForPlayer(World->GetFirstPlayerController());
+      }
     }
   }
 

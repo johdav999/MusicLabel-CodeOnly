@@ -4,7 +4,7 @@
 #include "Engine/GameInstance.h"
 #include "LabelManagerGameInstance.generated.h"
 
-class UWidget_DashboardLayout;
+class ULayout;
 class APlayerController;
 
 /**
@@ -21,18 +21,18 @@ public:
 
     /** Returns the dashboard layout widget if it has been created. */
     UFUNCTION(BlueprintPure, Category = "UI")
-    UWidget_DashboardLayout* GetLayoutWidget() const { return LayoutGUI; }
+    ULayout* GetLayoutWidget() const { return LayoutGUI; }
 
     /** Ensures the layout widget exists, is owned by the supplied player and added to the viewport. */
     UFUNCTION(BlueprintCallable, Category = "UI")
-    UWidget_DashboardLayout* EnsureLayoutForPlayer(APlayerController* OwningPlayer);
+    ULayout* EnsureLayoutForPlayer(APlayerController* OwningPlayer);
 
 protected:
     /** Class used to instantiate the persistent dashboard layout widget. */
     UPROPERTY(EditDefaultsOnly, Category = "UI")
-    TSubclassOf<UWidget_DashboardLayout> LayoutGUIClass;
+    TSubclassOf<ULayout> LayoutGUIClass;
 
     /** Persistent layout widget instance kept alive for the lifetime of the game instance. */
     UPROPERTY()
-    UWidget_DashboardLayout* LayoutGUI = nullptr;
+    ULayout* LayoutGUI = nullptr;
 };
