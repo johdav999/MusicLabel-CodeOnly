@@ -1,0 +1,34 @@
+# Unreal – keep this repo code-only
+Content/**
+Plugins/**/Content/**
+
+# Build artifacts / IDE
+Binaries/
+DerivedDataCache/
+Intermediate/
+Saved/
+.vs/
+.vscode/
+*.sln
+*.opensdf
+*.suo
+*.VC.db
+*.log
+*.pdb
+*.obj
+*.ipch
+*.iobj
+*.ipdb
+*.tlog
+*.tmp
+
+# Asset file types (just in case)
+*.uasset
+*.umap
+*.ubulk
+*.ucas
+*.utoc
+*.upack
+*.fbx
+*.mp3
+*.wav
