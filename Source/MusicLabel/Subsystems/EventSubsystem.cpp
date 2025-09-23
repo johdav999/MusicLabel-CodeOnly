@@ -2,6 +2,7 @@
 #include "Engine/World.h"
 #include "LabelManager/Public/LabelManagerGameInstance.h"
 #include "LabelManager/Public/UI/Layout.h"
+#include "LabelManager/Public/UI/DashboardViewModel.h"
 #include "LabelManager/public/LabelDataAssets.h"
 #include "TimerManager.h"
 
